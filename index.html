@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hải trình phương Tây</title>
+<meta name="description" content="Thuyết trình: Tư tưởng và văn hóa phương Tây góp phần hình thành tư tưởng Hồ Chí Minh — bản đồ liền mạch và một dòng bố cục rẽ nhánh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="boot">
+<main class="stage" id="stage">
+  <!-- lớp 1: biển + bản đồ (bên trái, mờ dần về phải) -->
+  <div class="sea" aria-hidden="true"></div>
+  <svg class="map" id="map" aria-hidden="true">
+    <g id="world">
+      <path id="grat" class="grat"/>
+      <path id="land" class="land"/>
+      <g id="hl"></g>
+      <path id="borders" class="borders"/>
+    </g>
+    <g id="overlay">
+      <path id="voyage" class="voyage"/>
+      <g id="pins"></g>
+      <g id="ship" class="ship"><circle class="ship-ring" r="11"/><circle r="5"/></g>
+    </g>
+  </svg>
+  <div class="map-fade" aria-hidden="true"></div>
+
+  <!-- lớp 2: ảnh nền chìm (bên phải, mờ dần về trái) -->
+  <div class="ghost" id="ghost" aria-hidden="true"><div class="ghost-img"></div><div class="ghost-img"></div></div>
+
+  <div class="veil" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- bìa -->
+  <section class="cover" id="cover">
+    <div class="cover-text">
+      <div class="kicker" id="cKicker"></div>
+      <h1 class="cover-title" id="cTitle"></h1>
+      <p class="cover-sub" id="cSub"></p>
+    </div>
+    <div class="trio" id="trio"></div>
+  </section>
+
+  <!-- chân dung / nhân vật (bên phải) -->
+  <div class="figure" id="figure"></div>
+  <img class="end-portrait" id="endPortrait" alt="">
+
+  <!-- nội dung (bên trái) -->
+  <section class="panel" id="panel" aria-live="polite">
+    <div class="kicker"><i class="gem" aria-hidden="true"></i><span id="pKicker"></span><span class="tag" id="pTag"></span></div>
+    <div class="place" id="pPlace"></div>
+    <h2 class="title" id="pTitle"></h2>
+    <div class="motto" id="pMotto"></div>
+    <div class="meta" id="pMeta"></div>
+    <p class="lead" id="pLead"></p>
+    <figure class="pq" id="pQuote"><blockquote id="qText"></blockquote><figcaption id="qSrc"></figcaption></figure>
+    <div class="takeaways" id="pTake"></div>
+  </section>
+
+  <div class="coord" id="coord" aria-hidden="true"></div>
+  <div class="bgcap" id="bgCap"></div>
+
+  <!-- dòng bố cục: trục chính + nhánh rẽ xuống -->
+  <nav class="rail" id="rail" aria-label="Các phần thuyết trình">
+    <svg class="rail-svg" id="railSvg">
+      <g id="rAxis"></g>
+      <g id="rBr"></g>
+      <g id="rNodes"></g>
+    </svg>
+    <div class="rail-caps" id="railCaps"></div>
+  </nav>
+</main>
+<script src="vendor/d3.min.js"></script>
+<script src="vendor/topojson-client.min.js"></script>
+<script src="vendor/world-50m.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

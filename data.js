@@ -1,4 +1,4 @@
-/* Nội dung thuyết trình — prototype 1 · v3 (theo khung .job/TOC.v1.md).
+/* Nội dung thuyết trình — prototype 1 · v4 (theo khung .job/TOC.v1.md; Mục 3, Mục 4 theo .job/TOC.draft.md).
    Mỗi phần (section) là một nút trên trục chính của "dòng bố cục".
    items: các nút rẽ nhánh xuống của phần đó; mỗi nút là MỘT bước trình chiếu.
      kind:   "story"   một nội dung có tiêu đề (mặc định)
@@ -237,66 +237,87 @@ window.DECK = {
       ]
     },
 
-    /* ================= MỤC 3 · DÂN CHỦ, NHÂN QUYỀN, TỰ DO (~2.5 phút) ================= */
+    /* ================= MỤC 3 · TƯ TƯỞNG TỰ DO, DÂN CHỦ (~2 phút) — theo TOC.draft ================= */
     {
       id: "nhan-quyen",
-      rail: "Dân chủ, nhân quyền, tự do",
-      kicker: "Dân chủ · nhân quyền · tự do",
-      title: "Tư tưởng dân chủ, nhân quyền, tự do",
+      rail: "Tư tưởng tự do, dân chủ",
+      kicker: "Tư tưởng tự do, dân chủ",
+      noTag: true, noFlowTag: true,
+      title: "Tư tưởng tự do, dân chủ",
       motto: ["Liberté", "Égalité", "Fraternité"],
       lead: "Hai bản tuyên ngôn của cách mạng Mỹ và Pháp, và cách Người “suy rộng ra”.",
       bg: "images/bg-bastille.jpg",
       bgCap: "Phá ngục Bastille, 14/7/1789 (tranh của J.-P. Houël)",
-      map: { at: "Paris", center: [-32, 42], zoom: 2.2, hl: [840, 250], pins: ["Philadelphia", "Paris"] },
+      map: { at: "Paris", center: [-32, 42], zoom: 2.2, hl: [840, 250], pins: ["Philadelphia", "Paris", "Versailles", "Hà Nội"] },
       items: [
         {
-          /* QĐ tạm 5: chỉ nhắc "từng đặt chân đến nước Mỹ", không chi tiết Boston/Brooklyn/Garvey */
+          /* TOC.draft Mục 3 Node 1: nguyên văn 2 ý (thêm chữ "được") */
           kind: "story", tag: "Tuyên ngôn Mỹ", label: "Tuyên ngôn Độc lập Mỹ",
-          title: "Tuyên ngôn Độc lập Mỹ",
-          text: "Philadelphia, 4/7/1776: mười ba thuộc địa Bắc Mỹ tuyên bố tách khỏi Anh; Thomas Jefferson soạn thảo.",
+          title: "Tuyên ngôn Độc lập của Mỹ",
           points: [
-            "Lần đầu quyền tự nhiên của con người làm cơ sở cho độc lập quốc gia",
-            "Nguyễn Tất Thành từng đặt chân đến nước Mỹ (1912–1913)"
+            "Tháng 7 năm 1776, mười ba thuộc địa của Anh ở Bắc Mỹ tuyên bố độc lập.",
+            "Bản tuyên ngôn độc lập của Mỹ đánh dấu lần đầu tiên quyền cơ bản của con người được đưa làm nền tảng lập quốc."
           ],
-          quote: {
-            text: "Tất cả mọi người đều sinh ra có quyền bình đẳng. Tạo hoá cho họ những quyền không ai có thể xâm phạm được; trong những quyền ấy, có quyền được sống, quyền tự do và quyền mưu cầu hạnh phúc.",
-            src: "Bản dịch trong Tuyên ngôn Độc lập Việt Nam, 2/9/1945"
-          },
           img: "images/p-jefferson.jpg", imgName: "Thomas Jefferson",
           bg: "images/bg-us-declaration.jpg",
           bgCap: "Tuyên ngôn độc lập, tranh của John Trumbull (1819)",
           at: "Philadelphia", zoom: 6
         },
         {
-          kind: "story", tag: "Tuyên ngôn Pháp", label: "Nhân quyền và Dân quyền",
-          title: "Tuyên ngôn Nhân quyền và Dân quyền",
-          text: "Paris, 26/8/1789, sau khi phá ngục Bastille.",
+          /* TOC.draft Mục 3 Node 2: sửa "tháng 8" → "tháng 7" (Bastille bị phá 14/7/1789), "Bastile" → "Bastille" */
+          kind: "story", tag: "Tuyên ngôn Pháp", label: "Cách mạng Pháp",
+          title: "Tuyên ngôn của Pháp",
           points: [
-            "Quyền tự nhiên: tự do, tài sản, an ninh, chống áp bức",
-            "Chủ quyền thuộc về quốc gia; khẩu hiệu Tự do, Bình đẳng, Bác ái"
+            "Tháng 7 năm 1789, nhà tù Bastille bị phá, cách mạng Pháp bùng nổ.",
+            "Đó là thời điểm mà khẩu hiệu Tự do – Bình đẳng – Bác ái được phổ biến rộng rãi."
           ],
-          quote: {
-            text: "Người ta sinh ra tự do và bình đẳng về quyền lợi; và phải luôn luôn được tự do và bình đẳng về quyền lợi.",
-            src: "Điều 1, bản dịch trong Tuyên ngôn Độc lập 1945 (văn bản ghi “năm 1791”)"
-          },
-          bg: "images/bg-ddhc.jpg",
-          bgCap: "Tuyên ngôn Nhân quyền và Dân quyền, tranh của J.-J.-F. Le Barbier (khoảng 1789)",
+          bg: "images/bg-bastille.jpg",
+          bgCap: "Phá ngục Bastille, 14/7/1789 (tranh của J.-P. Houël)",
           at: "Paris", zoom: 7
         },
         {
-          /* QĐ tạm 6: Bản yêu sách 1919 gộp vào nút này; không nêu tranh luận người soạn thảo */
-          kind: "story", tag: "Kế thừa", label: "Đến Ba Đình",
-          title: "Từ hai bản tuyên ngôn đến Ba Đình",
+          /* TOC.draft Mục 3 Node 3: 3 ý nguyên văn (người dùng bỏ câu 13 tuổi và ý "đặt chân đến nước Mỹ") */
+          kind: "story", tag: "Bản yêu sách", label: "Bản yêu sách",
+          title: "Bản yêu sách của nhân dân An Nam",
           points: [
-            "Bản yêu sách 8 điểm gửi tới Hội nghị Versailles (1919), ký tên Nguyễn Ái Quốc",
-            "Tuyên ngôn Độc lập 2/9/1945 mở đầu bằng lời hai bản tuyên ngôn",
-            "Dùng chính lý lẽ ấy tố cáo thực dân “lợi dụng lá cờ tự do, bình đẳng, bác ái”"
+            "Năm 1919, Bản yêu sách của nhân dân An Nam gửi tới Hội nghị Versailles, ký tên Nguyễn Ái Quốc.",
+            "Bản yêu sách dùng chính ngôn ngữ dân quyền của phương Tây để đòi tự do ngôn luận, báo chí, hội họp, đi lại cho dân thuộc địa.",
+            "Bản yêu sách không được đáp lại. Người nhận ra rằng những lời hứa tự do của các nước lớn không dành cho dân thuộc địa."
+          ],
+          img: "images/HCM_1.png", imgName: "Nguyễn Ái Quốc",
+          bg: "images/bg-versailles-1919.jpg",
+          bgCap: "Ký hòa ước trong Phòng Gương, Versailles, 28/6/1919 (tranh của William Orpen)",
+          at: "Versailles", zoom: 7
+        },
+        {
+          /* TOC.draft Mục 3 Node 4: câu trích đúng nguyên văn Tuyên ngôn ("những lẽ phải") */
+          kind: "story", tag: "Tuyên ngôn Độc lập", label: "Tuyên ngôn Độc lập",
+          title: "Tuyên ngôn Độc lập",
+          points: [
+            "Ngày 2/9/1945, Tuyên ngôn Độc lập của nước Việt Nam Dân chủ Cộng hòa mở đầu bằng lời của chính hai bản tuyên ngôn Mỹ và Pháp."
+          ],
+          quote: {
+            text: "Đó là những lẽ phải không ai chối cãi được.",
+            src: "Hồ Chí Minh, Tuyên ngôn Độc lập, 2/9/1945"
+          },
+          img: "images/HCM_3.png", imgName: "Hồ Chí Minh",
+          bg: "images/bg-ba-dinh-1945.jpg",
+          bgCap: "Lễ đọc Tuyên ngôn Độc lập, Quảng trường Ba Đình, 2/9/1945",
+          at: "Hà Nội", zoom: 5
+        },
+        {
+          /* TOC.draft Mục 3 Node 5: 3 ý nguyên văn; câu "Suy rộng ra…" tách thành câu trích */
+          kind: "story", tag: "Kế thừa và phát huy", label: "Kế thừa và phát huy",
+          title: "Sự kế thừa và phát huy",
+          points: [
+            "Người tiếp thu những tư tưởng tự do, dân chủ phương Tây, và dùng chính lý lẽ ấy để buộc tội thực dân.",
+            "Người cũng chỉ ra giới hạn: đó là “cách mệnh không đến nơi”, tiếng là cộng hòa, dân chủ, nhưng trong thì bóc lột công nông, ngoài thì áp bức thuộc địa.",
+            "Từ quyền con người, Người nâng lên thành quyền dân tộc."
           ],
           quote: {
             text: "Suy rộng ra, câu ấy có ý nghĩa là: tất cả các dân tộc trên thế giới đều sinh ra bình đẳng, dân tộc nào cũng có quyền sống, quyền sung sướng và quyền tự do.",
             src: "Hồ Chí Minh, Tuyên ngôn Độc lập, 2/9/1945"
           },
-          img: "images/HCM_3.png",
           bg: "images/bg-ba-dinh-1945.jpg",
           bgCap: "Lễ đọc Tuyên ngôn Độc lập, Quảng trường Ba Đình, 2/9/1945",
           at: "Hà Nội", zoom: 5
@@ -304,62 +325,67 @@ window.DECK = {
       ]
     },
 
-    /* ================= MỤC 4 · THIÊN CHÚA GIÁO (~2 phút) ================= */
+    /* ================= MỤC 4 · THIÊN CHÚA GIÁO (~2 phút) — theo TOC.draft ================= */
     {
       id: "thien-chua",
       rail: "Thiên Chúa giáo",
       kicker: "Thiên Chúa giáo",
+      noTag: true, noFlowTag: true,
       title: "Thiên Chúa giáo",
       lead: "Một nền tảng của văn hóa phương Tây: lòng bác ái, tinh thần hy sinh vì con người.",
       bg: "images/bg-vatican.jpg",
       bgCap: "Quảng trường Thánh Phêrô, tranh khắc của G. B. Piranesi (1772)",
-      map: { at: "Roma · Vatican", zoom: 6, hl: [380], pins: ["Roma · Vatican"] },
+      map: { at: "Roma · Vatican", zoom: 6, hl: [380], pins: ["Roma · Vatican", "Hà Nội"] },
       items: [
         {
-          kind: "story", tag: "Kitô giáo", label: "Yêu thương và hy sinh",
-          title: "Tình yêu thương và sự hy sinh",
+          /* TOC.draft Mục 4 Node 1: nguyên văn 3 ý; bản đồ đến Roma · Vatican */
+          kind: "story", tag: "Kitô giáo", label: "Kitô giáo",
+          title: "Kitô giáo",
           points: [
-            "Mọi người đều là con của Chúa, không phân biệt sang hèn, màu da",
-            "Đề cao lòng bác ái, tình yêu thương giữa người với người",
-            "Chúa Giê-su: biểu tượng hy sinh để cứu chuộc con người khổ đau"
+            "Mọi con người đều là con của Chúa, không phân biệt sang hèn hay màu da.",
+            "Đề cao lòng bác ái, tình yêu thương giữa người với người.",
+            "Chúa Giê-su: biểu tượng của sự hi sinh để cứu chuộc và giải phóng những con người khổ đau."
           ],
-          quote: {
-            text: "Gần 20 thế kỷ trước, một vị thánh nhân đã ra đời. Cả đời Người chỉ lo cứu thế độ dân, hy sinh cho tự do, bình đẳng.",
-            src: "Hồ Chí Minh, thư nhân lễ Giáng sinh, 24/12/1946"
-          },
           bg: "images/bg-sermon-mount.jpg",
           bgCap: "Bài giảng trên núi, Carl Bloch (1877)",
           at: "Roma · Vatican", zoom: 8
         },
         {
-          /* QĐ tạm 1: giữ câu "lòng nhân ái cao cả", ghi nguồn theo Trần Dân Tiên 1949 */
-          kind: "story", tag: "Trích dẫn", label: "Một học thuyết",
-          title: "Một học thuyết, một ưu điểm",
+          /* TOC.draft Mục 4 Node 2: nguyên văn 2 ý */
+          kind: "story", tag: "Con đường tiếp cận", label: "Con đường tiếp cận",
+          title: "Con đường tiếp cận",
+          points: [
+            "Thiên Chúa giáo đã có mặt ở Việt Nam từ thế kỷ XVI.",
+            "Sang phương Tây, Người sống giữa một xã hội thấm đẫm văn hóa Kitô giáo: nhà thờ, lễ Giáng sinh, Kinh Thánh trong văn chương."
+          ],
+          bg: "images/bg-vatican.jpg",
+          bgCap: "Quảng trường Thánh Phêrô, tranh khắc của G. B. Piranesi (1772)",
+          at: "Roma · Vatican", zoom: 8
+        },
+        {
+          /* TOC.draft Mục 4 Node 3: câu Khổng Tử – Giê-su làm câu trích chính (nguồn theo QĐ tạm 1) */
+          kind: "story", tag: "Nhận định", label: "Nhận định của Người",
+          title: "Nhận định của Hồ Chí Minh",
           quote: {
-            text: "Học thuyết của Khổng Tử có ưu điểm của nó là sự tu dưỡng đạo đức cá nhân. Tôn giáo Giêsu có ưu điểm của nó là lòng nhân ái cao cả.",
+            text: "Học thuyết Khổng Tử có ưu điểm là sự tu dưỡng đạo đức cá nhân. Tôn giáo Giê-su có ưu điểm là lòng nhân ái cao cả… Tôi cố gắng làm người học trò nhỏ của các vị ấy.",
             src: "Theo Trần Dân Tiên (bản tiếng Trung, 1949)"
           },
           qfirst: true,
           points: [
-            "Khổng Tử: tu dưỡng đạo đức",
-            "Giê-su: lòng nhân ái",
-            "Mác: phương pháp làm việc biện chứng"
+            "“Chúa Giê-su dạy: Đạo đức là bác ái.”",
+            "Người không nhìn tôn giáo bằng lăng kính giáo điều, mà bằng con mắt văn hóa – đạo đức, chắt lọc cái tốt ở mỗi học thuyết."
           ],
           at: "Roma · Vatican", zoom: 8
         },
         {
-          /* QĐ tạm 2: tên phương án 1; chứng cứ phê phán lấy từ Bản án chế độ thực dân Pháp */
-          kind: "story", tag: "Góc nhìn biện chứng", label: "Kẻ mượn danh Chúa",
-          title: "Phân định Chúa và kẻ mượn danh Chúa",
+          /* TOC.draft Mục 4 Node 4: nguyên văn 3 ý; sửa "đóng thành cách mạng" → "thành hành động cách mạng" */
+          kind: "story", tag: "Kế thừa và phát huy", label: "Kế thừa và phát huy",
+          title: "Kế thừa và phát huy",
           points: [
-            "Đề cao lòng nhân ái của Chúa Giê-su; đoàn kết lương giáo, tôn trọng tự do tín ngưỡng",
-            "Vạch trần kẻ mượn danh Chúa làm tay sai xâm lược, chiếm ruộng đất",
-            "Thước đo: việc làm có hợp lòng bác ái và lợi ích dân tộc hay không"
+            "Hồ Chí Minh đã kế thừa lòng nhân ái, đức hi sinh, hết lòng phụng sự cho nước nhà.",
+            "Người đã chuyển hóa lòng nhân ái, đức hi sinh thành hành động cách mạng, thực hiện giải phóng con người gắn với giải phóng dân tộc khỏi áp bức, bóc lột.",
+            "Người cũng phân định rạch ròi giữa giáo lý tốt đẹp và kẻ thực dân mượn danh tôn giáo, luôn chủ trương “Tín ngưỡng tự do, lương giáo đoàn kết”."
           ],
-          quote: {
-            text: "Đấy là những hành động phúc âm mà các “Cha nhà ta” nỗ lực làm hằng ngày và bao giờ cũng là nhân danh Chúa cả.",
-            src: "Nguyễn Ái Quốc, Bản án chế độ thực dân Pháp"
-          },
           bg: "images/bg-tourane-1858.jpg", bgDim: true,
           bgCap: "Tàu chiến Pháp tấn công Đà Nẵng, 1858",
           at: "Hà Nội", zoom: 4.5
@@ -373,21 +399,24 @@ window.DECK = {
       kind: "end",
       rail: "Kết luận",
       kicker: "Kết luận",
-      title: "Chọn lọc, không sao chép",
-      lead: "Phương Tây là một nguồn, không phải điểm đến.",
+      noTag: true, noFlowTag: true,
+      /* trang đầu kết luận nhắc lại đúng tên đề tài ở bìa */
+      title: "Tư tưởng và văn hóa phương Tây",
+      lead: "góp phần hình thành tư tưởng Hồ Chí Minh",
       bg: "images/bg-tours-1920.jpg",
       bgCap: "Nguyễn Ái Quốc phát biểu tại Đại hội Tours, 12/1920",
       portrait: "images/HCM_4.png",
       map: { at: "Hà Nội", zoom: 1.2, hl: [704], pins: ["Hà Nội"] },
       items: [
         {
-          kind: "summary", tag: "Tổng kết", label: "Lấy cái hay",
-          title: "Lấy cái hay, đặt vào lợi ích dân tộc",
-          grid: [
-            { b: "Khai sáng & tuyên ngôn", t: "Ngôn ngữ của quyền con người, nâng lên thành quyền dân tộc." },
-            { b: "Văn học nhân đạo", t: "Thương người bị áp bức; lối viết giản dị." },
-            { b: "Thiên Chúa giáo", t: "Tấm gương bác ái; phân biệt đạo với kẻ lợi dụng đạo." },
-            { b: "Cách làm chung", t: "So sánh, phê phán, chọn lọc; thước đo là độc lập dân tộc, hạnh phúc nhân dân." }
+          /* TOC.draft Kết luận: 4 ý nguyên văn; sửa "tư do" → "tự do", "những văn" → "những giá trị ấy" */
+          kind: "story", tag: "Tổng kết", label: "Tổng kết",
+          title: "Tổng kết",
+          points: [
+            "Trong thời gian bôn ba các nước châu Âu, Bác đã có thời gian tiếp xúc và học hỏi văn hóa và tư tưởng mới mẻ của người phương Tây.",
+            "Bác đã tiếp thu có chọn lọc những tinh hoa văn hóa tư tưởng của họ, từ triết học khai sáng, những tư tưởng tự do tiến bộ cho đến văn học và tôn giáo.",
+            "Không chỉ học hỏi, Bác còn phát triển những giá trị ấy lên một tầm cao mới, phù hợp cho con đường cách mạng của dân tộc Việt Nam.",
+            "Những tư tưởng, văn hóa phương Tây ấy đóng góp một phần không nhỏ trong việc hình thành nên con người vĩ đại của cả dân tộc."
           ]
         },
         {

@@ -1,8 +1,8 @@
-# Prototype 1 — Hải trình · v3
+# Prototype 1 — Hải trình · v4
 
 **Đề tài:** Tư tưởng và văn hóa phương Tây góp phần hình thành tư tưởng Hồ Chí Minh
 
-v3 giữ nguyên cơ chế của v2 và thay toàn bộ nội dung theo khung `.job/TOC.v1.md` (Mở đầu, Mục 1–4, Kết luận). Chữ trên màn hình được rút ngắn và chỉ dùng bản đã đính chính trong TOC.v1.
+v4 giữ nguyên cơ chế và nội dung của v3, chỉ thay Mục 3 (Tư tưởng tự do, dân chủ) và Mục 4 (Thiên Chúa giáo) theo `.job/TOC.draft.md`. Các phần khác vẫn theo khung `.job/TOC.v1.md`.
 
 ## Ý tưởng
 
@@ -29,23 +29,23 @@ Một nút nhánh gồm: tiêu đề, (tùy chọn) một câu dẫn, 2–4 gạ
 | `→` `↓` `Space` `PageDown` `Enter`, bấm chuột ¾ màn hình bên phải | bước tiếp |
 | `←` `↑` `PageUp` `Backspace`, bấm chuột ¼ màn hình bên trái | lùi lại |
 | bấm vào một nút trên dòng bố cục | nhảy tới bước đó |
-| `0`–`5` | nhảy tới phần: 0 Mở đầu, 1 Khai sáng, 2 Văn học, 3 Dân chủ–nhân quyền, 4 Thiên Chúa giáo, 5 Kết luận |
+| `0`–`5` | nhảy tới phần: 0 Mở đầu, 1 Khai sáng, 2 Văn học, 3 Tự do, dân chủ, 4 Thiên Chúa giáo, 5 Kết luận |
 | `Home` / `End` | về đầu / tới cuối |
 | `F` | bật/tắt toàn màn hình |
 | lăn chuột (mỗi cú lăn = 1 bước), vuốt ngang | bước tiếp / lùi |
 
 URL tự ghi số bước (`index.html#8`), tải lại trang vẫn đúng chỗ. Thêm `?still` để tắt hiệu ứng (dùng khi chụp ảnh kiểm tra), ví dụ `index.html?still#16`.
 
-**Tổng cộng 23 bước.**
+**Tổng cộng 26 bước.**
 
 | Phần | Bước | Thời lượng dự kiến |
 |---|---|---|
 | Mở đầu (bìa + 2 node) | 1–3 | ~1 phút |
 | Triết học Khai sáng Pháp (mở phần + 5 node) | 4–9 | ~2.5 phút |
 | Văn học phương Tây (mở phần + 2 node) | 10–12 | ~1.5 phút |
-| Dân chủ, nhân quyền, tự do (mở phần + 3 node) | 13–16 | ~2.5 phút |
-| Thiên Chúa giáo (mở phần + 3 node) | 17–20 | ~2 phút |
-| Kết luận (mở phần + 2 node) | 21–23 | ~1 phút |
+| Tư tưởng tự do, dân chủ (mở phần + 5 node) | 13–18 | ~2 phút |
+| Thiên Chúa giáo (mở phần + 4 node) | 19–23 | ~2 phút |
+| Kết luận (mở phần + 2 node) | 24–26 | ~1 phút |
 
 ## Cấu trúc thư mục
 
@@ -75,7 +75,26 @@ Mọi nội dung nằm trong `data.js` (đầu file có chú thích từng trư�
 
 Các chỗ ứng với "Quyết định tạm" được đánh dấu `QĐ tạm N` trong `data.js`.
 
-## Thay đổi so với v2
+## Thay đổi so với v3
+
+Mục 3 và Mục 4 dùng nội dung của `.job/TOC.draft.md` (người dùng soạn lại). Chữ giữ nguyên văn bản nháp, chỉ sửa mấy chỗ sau:
+
+- Mục 3 Node 2: "Tháng 8 năm 1789" → "Tháng 7 năm 1789" (ngục Bastille bị phá 14/7/1789; tháng 8 là lúc thông qua Tuyên ngôn Nhân quyền và Dân quyền); "Bastile" → "Bastille".
+- Mục 3 Node 1: thêm chữ "được" ("quyền cơ bản của con người **được** đưa làm nền tảng lập quốc").
+- Mục 3 Node 4: câu trích sửa đúng nguyên văn Tuyên ngôn Độc lập: "Đó là những lẽ **phải** không ai chối cãi được."
+- Mục 3 Node 5: "tư do" → "tự do".
+- Mục 4 Node 4: "đức hi sinh đóng thành cách mạng" → "đức hi sinh thành hành động cách mạng" (đoán ý; người dùng kiểm tra lại).
+
+Cách dàn trang:
+
+- Câu trích trong bản nháp được tách thành khung trích (viền đỏ): "Đó là những lẽ phải…" (Mục 3 Node 4), "Suy rộng ra…" (Mục 3 Node 5), câu Khổng Tử – Giê-su (Mục 4 Node 3, đứng trước; nguồn giữ theo QĐ tạm 1). Không thêm câu trích nào ngoài bản nháp (bỏ câu thư Noel 1946 và câu *Bản án chế độ thực dân Pháp* của v3).
+- Hải trình Mục 3: Paris → Philadelphia → Paris → Versailles → Hà Nội. Mục 4: Roma · Vatican (Node 1–3) → Hà Nội (Node 4).
+- Chân dung: Jefferson (Mục 3 Node 1), HCM_1 (Node 3, Nguyễn Ái Quốc thời ở Pháp), HCM_3 (Node 4); HCM_4 để dành cho Kết luận.
+- Ảnh mới `bg-versailles-1919.jpg` cho nút Bản yêu sách (xem `images/_credits.md`).
+- Mục 3 Node 3 (Bản yêu sách): theo yêu cầu người dùng, bỏ câu trích "mười ba tuổi" và ý "Người đã đặt chân đến nước Mỹ…"; còn 3 ý.
+- Mục 3, Mục 4 ẩn chữ tag nhỏ trên dòng bố cục (`noFlowTag`) vì tag và nhãn gần như trùng nhau.
+
+## Thay đổi so với v2 (đã có từ v3)
 
 - Thay toàn bộ nội dung theo TOC.v1: 6 phần, 17 node (v2: 9 phần, 42 bước).
 - Phần Mở đầu = bìa + 2 nút nhánh theo `TOC.draft.md` mới (Ra đi tìm đường cứu nước, Những năm bôn ba); bìa vẫn không ảnh nền, không chú thích.
@@ -156,54 +175,62 @@ Các chỗ ứng với "Quyết định tạm" được đánh dấu `QĐ tạm 
 
 Theo TOC.v1, mục (c) của hai nút (chuyện/câu Tolstoy 1960, "Điếc không sợ súng", câu Trần Dân Tiên) **không đưa lên slide**; không bìa Le Paria. Ảnh p-zola, p-anatole-france vẫn để trong images nhưng không dùng.
 
-### Dân chủ, nhân quyền, tự do
-**Mở phần — Tư tưởng dân chủ, nhân quyền, tự do** · *Liberté · Égalité · Fraternité*: Hai bản tuyên ngôn của cách mạng Mỹ và Pháp, và cách Người "suy rộng ra". *(Đại Tây Dương; nền bg-bastille)*
+### Tư tưởng tự do, dân chủ
+**Mở phần — Tư tưởng tự do, dân chủ** · *Liberté · Égalité · Fraternité*: Hai bản tuyên ngôn của cách mạng Mỹ và Pháp, và cách Người "suy rộng ra". *(Đại Tây Dương; nền bg-bastille)*
 
-**Tuyên ngôn Mỹ — Tuyên ngôn Độc lập Mỹ** *(Philadelphia; chân dung Jefferson; nền bg-us-declaration)*
-- Philadelphia, 4/7/1776: mười ba thuộc địa Bắc Mỹ tuyên bố tách khỏi Anh; Thomas Jefferson soạn thảo.
-- Lần đầu quyền tự nhiên của con người làm cơ sở cho độc lập quốc gia
-- Nguyễn Tất Thành từng đặt chân đến nước Mỹ (1912–1913)
-- Trích: "Tất cả mọi người đều sinh ra có quyền bình đẳng. Tạo hoá cho họ những quyền không ai có thể xâm phạm được; trong những quyền ấy, có quyền được sống, quyền tự do và quyền mưu cầu hạnh phúc." — Bản dịch trong Tuyên ngôn Độc lập Việt Nam, 2/9/1945
+**Tuyên ngôn Độc lập của Mỹ** *(Philadelphia; chân dung Jefferson; nền bg-us-declaration)*
+- Tháng 7 năm 1776, mười ba thuộc địa của Anh ở Bắc Mỹ tuyên bố độc lập.
+- Bản tuyên ngôn độc lập của Mỹ đánh dấu lần đầu tiên quyền cơ bản của con người được đưa làm nền tảng lập quốc.
 
-**Tuyên ngôn Pháp — Tuyên ngôn Nhân quyền và Dân quyền** *(Paris; nền bg-ddhc)*
-- Paris, 26/8/1789, sau khi phá ngục Bastille.
-- Quyền tự nhiên: tự do, tài sản, an ninh, chống áp bức
-- Chủ quyền thuộc về quốc gia; khẩu hiệu Tự do, Bình đẳng, Bác ái
-- Trích: "Người ta sinh ra tự do và bình đẳng về quyền lợi; và phải luôn luôn được tự do và bình đẳng về quyền lợi." — Điều 1, bản dịch trong Tuyên ngôn Độc lập 1945 (văn bản ghi "năm 1791")
+**Tuyên ngôn của Pháp** *(Paris; nền bg-bastille)*
+- Tháng 7 năm 1789, nhà tù Bastille bị phá, cách mạng Pháp bùng nổ.
+- Đó là thời điểm mà khẩu hiệu Tự do – Bình đẳng – Bác ái được phổ biến rộng rãi.
 
-**Kế thừa — Từ hai bản tuyên ngôn đến Ba Đình** *(Hà Nội; chân dung HCM_3; nền bg-ba-dinh-1945)*
-- Bản yêu sách 8 điểm gửi tới Hội nghị Versailles (1919), ký tên Nguyễn Ái Quốc
-- Tuyên ngôn Độc lập 2/9/1945 mở đầu bằng lời hai bản tuyên ngôn
-- Dùng chính lý lẽ ấy tố cáo thực dân "lợi dụng lá cờ tự do, bình đẳng, bác ái"
+**Bản yêu sách của nhân dân An Nam** *(Versailles; chân dung HCM_1; nền bg-versailles-1919)*
+- Năm 1919, Bản yêu sách của nhân dân An Nam gửi tới Hội nghị Versailles, ký tên Nguyễn Ái Quốc.
+- Bản yêu sách dùng chính ngôn ngữ dân quyền của phương Tây để đòi tự do ngôn luận, báo chí, hội họp, đi lại cho dân thuộc địa.
+- Bản yêu sách không được đáp lại. Người nhận ra rằng những lời hứa tự do của các nước lớn không dành cho dân thuộc địa.
+
+**Tuyên ngôn Độc lập** *(Hà Nội; chân dung HCM_3; nền bg-ba-dinh-1945)*
+- Ngày 2/9/1945, Tuyên ngôn Độc lập của nước Việt Nam Dân chủ Cộng hòa mở đầu bằng lời của chính hai bản tuyên ngôn Mỹ và Pháp.
+- Trích: "Đó là những lẽ phải không ai chối cãi được." — Hồ Chí Minh, Tuyên ngôn Độc lập, 2/9/1945
+
+**Sự kế thừa và phát huy** *(Hà Nội; nền bg-ba-dinh-1945)*
+- Người tiếp thu những tư tưởng tự do, dân chủ phương Tây, và dùng chính lý lẽ ấy để buộc tội thực dân.
+- Người cũng chỉ ra giới hạn: đó là "cách mệnh không đến nơi", tiếng là cộng hòa, dân chủ, nhưng trong thì bóc lột công nông, ngoài thì áp bức thuộc địa.
+- Từ quyền con người, Người nâng lên thành quyền dân tộc.
 - Trích: "Suy rộng ra, câu ấy có ý nghĩa là: tất cả các dân tộc trên thế giới đều sinh ra bình đẳng, dân tộc nào cũng có quyền sống, quyền sung sướng và quyền tự do." — Hồ Chí Minh, Tuyên ngôn Độc lập, 2/9/1945
 
 ### Thiên Chúa giáo
 **Mở phần:** Một nền tảng của văn hóa phương Tây: lòng bác ái, tinh thần hy sinh vì con người. *(Roma · Vatican; nền bg-vatican)*
 
-**Kitô giáo — Tình yêu thương và sự hy sinh** *(nền bg-sermon-mount)*
-- Mọi người đều là con của Chúa, không phân biệt sang hèn, màu da
-- Đề cao lòng bác ái, tình yêu thương giữa người với người
-- Chúa Giê-su: biểu tượng hy sinh để cứu chuộc con người khổ đau
-- Trích: "Gần 20 thế kỷ trước, một vị thánh nhân đã ra đời. Cả đời Người chỉ lo cứu thế độ dân, hy sinh cho tự do, bình đẳng." — Hồ Chí Minh, thư nhân lễ Giáng sinh, 24/12/1946
+**Kitô giáo** *(Roma · Vatican; nền bg-sermon-mount)*
+- Mọi con người đều là con của Chúa, không phân biệt sang hèn hay màu da.
+- Đề cao lòng bác ái, tình yêu thương giữa người với người.
+- Chúa Giê-su: biểu tượng của sự hi sinh để cứu chuộc và giải phóng những con người khổ đau.
 
-**Trích dẫn — Một học thuyết, một ưu điểm**
-- Trích: "Học thuyết của Khổng Tử có ưu điểm của nó là sự tu dưỡng đạo đức cá nhân. Tôn giáo Giêsu có ưu điểm của nó là lòng nhân ái cao cả." — Theo Trần Dân Tiên (bản tiếng Trung, 1949)
-- Khổng Tử: tu dưỡng đạo đức · Giê-su: lòng nhân ái · Mác: phương pháp làm việc biện chứng
+**Con đường tiếp cận** *(Roma · Vatican; nền bg-vatican)*
+- Thiên Chúa giáo đã có mặt ở Việt Nam từ thế kỷ XVI.
+- Sang phương Tây, Người sống giữa một xã hội thấm đẫm văn hóa Kitô giáo: nhà thờ, lễ Giáng sinh, Kinh Thánh trong văn chương.
 
-**Góc nhìn biện chứng — Phân định Chúa và kẻ mượn danh Chúa** *(Vatican → Hà Nội; nền bg-tourane-1858)*
-- Đề cao lòng nhân ái của Chúa Giê-su; đoàn kết lương giáo, tôn trọng tự do tín ngưỡng
-- Vạch trần kẻ mượn danh Chúa làm tay sai xâm lược, chiếm ruộng đất
-- Thước đo: việc làm có hợp lòng bác ái và lợi ích dân tộc hay không
-- Trích: "Đấy là những hành động phúc âm mà các "Cha nhà ta" nỗ lực làm hằng ngày và bao giờ cũng là nhân danh Chúa cả." — Nguyễn Ái Quốc, Bản án chế độ thực dân Pháp
+**Nhận định của Hồ Chí Minh** *(Roma · Vatican; nền bg-vatican)*
+- Trích: "Học thuyết Khổng Tử có ưu điểm là sự tu dưỡng đạo đức cá nhân. Tôn giáo Giê-su có ưu điểm là lòng nhân ái cao cả… Tôi cố gắng làm người học trò nhỏ của các vị ấy." — Theo Trần Dân Tiên (bản tiếng Trung, 1949)
+- "Chúa Giê-su dạy: Đạo đức là bác ái."
+- Người không nhìn tôn giáo bằng lăng kính giáo điều, mà bằng con mắt văn hóa – đạo đức, chắt lọc cái tốt ở mỗi học thuyết.
+
+**Kế thừa và phát huy** *(Roma → Hà Nội; nền bg-tourane-1858)*
+- Hồ Chí Minh đã kế thừa lòng nhân ái, đức hi sinh, hết lòng phụng sự cho nước nhà.
+- Người đã chuyển hóa lòng nhân ái, đức hi sinh thành hành động cách mạng, thực hiện giải phóng con người gắn với giải phóng dân tộc khỏi áp bức, bóc lột.
+- Người cũng phân định rạch ròi giữa giáo lý tốt đẹp và kẻ thực dân mượn danh tôn giáo, luôn chủ trương "Tín ngưỡng tự do, lương giáo đoàn kết".
 
 ### Kết luận
-**Mở phần — Chọn lọc, không sao chép:** Phương Tây là một nguồn, không phải điểm đến. *(Hà Nội, toàn thế giới; nền bg-tours-1920; chân dung lớn HCM_4 suốt phần kết)*
+**Mở phần — Tư tưởng và văn hóa phương Tây** · *góp phần hình thành tư tưởng Hồ Chí Minh*: nhắc lại đúng tên đề tài ở bìa, dòng phụ cùng kiểu chữ với bìa (serif nghiêng, đỏ son, gạch ngắn bên dưới). *(Hà Nội, toàn thế giới; nền bg-tours-1920; chân dung lớn HCM_4 suốt phần kết)*
 
-**Tổng kết — Lấy cái hay, đặt vào lợi ích dân tộc** (lưới 4 ô)
-- Khai sáng & tuyên ngôn: Ngôn ngữ của quyền con người, nâng lên thành quyền dân tộc.
-- Văn học nhân đạo: Thương người bị áp bức; lối viết giản dị.
-- Thiên Chúa giáo: Tấm gương bác ái; phân biệt đạo với kẻ lợi dụng đạo.
-- Cách làm chung: So sánh, phê phán, chọn lọc; thước đo là độc lập dân tộc, hạnh phúc nhân dân.
+**Tổng kết** — 4 ý nguyên văn TOC.draft (sửa "tư do" → "tự do", "những văn" → "những giá trị ấy")
+- Trong thời gian bôn ba các nước châu Âu, Bác đã có thời gian tiếp xúc và học hỏi văn hóa và tư tưởng mới mẻ của người phương Tây.
+- Bác đã tiếp thu có chọn lọc những tinh hoa văn hóa tư tưởng của họ, từ triết học khai sáng, những tư tưởng tự do tiến bộ cho đến văn học và tôn giáo.
+- Không chỉ học hỏi, Bác còn phát triển những giá trị ấy lên một tầm cao mới, phù hợp cho con đường cách mạng của dân tộc Việt Nam.
+- Những tư tưởng, văn hóa phương Tây ấy đóng góp một phần không nhỏ trong việc hình thành nên con người vĩ đại của cả dân tộc.
 
 **Lời kết**
 - Trích: "Tự do cho đồng bào tôi, độc lập cho Tổ quốc tôi, đấy là tất cả những điều tôi muốn, đấy là tất cả những điều tôi hiểu." — Nguyễn Ái Quốc, 1920
@@ -215,7 +242,7 @@ Các "Câu hỏi cho người dùng" trong TOC.v1 chưa được trả lời. T�
 
 | # | Câu hỏi (TOC.v1) | Đã chọn tạm | Cách đổi |
 |---|---|---|---|
-| 1 | Mục 4 Node 2: giữ câu "lòng nhân ái cao cả" hay thay bằng thư Noel 1946/1953 | Giữ câu (bản A), ghi nguồn "Theo Trần Dân Tiên (bản tiếng Trung, 1949)" | Thay `quote` của nút "Một học thuyết" bằng câu Noel 1953 hoặc "Chúng làm trái hẳn với lòng bác ái của Đức Giêsu" (1946) |
+| 1 | Mục 4: nguồn ghi cho câu "lòng nhân ái cao cả" | Ghi nguồn "Theo Trần Dân Tiên (bản tiếng Trung, 1949)" (v4: nút "Nhận định của Hồ Chí Minh") | Sửa `src` của nút đó; hoặc thay `quote` bằng câu Noel 1953 hoặc "Chúng làm trái hẳn với lòng bác ái của Đức Giêsu" (1946) |
 | 2 | Mục 4 Node 3: tên nút; dùng *Bản án chế độ thực dân Pháp* thay cụm "ru ngủ" | Tên phương án 1 "Phân định Chúa và kẻ mượn danh Chúa"; có dùng *Bản án*; bỏ "ru ngủ" | Đổi `title` thành "Hai gương mặt của đạo Chúa" hoặc "Góc nhìn biện chứng" |
 | 3 | Mục 1 Node 3: chuyển việc đọc Rousseau/Voltaire/Montesquieu sang Phan Thiết | **Người dùng đã quyết**: dùng nguyên văn 2 ý trong TOC.v1 (b); phương án bám nguồn (Phan Thiết, Đảng Xã hội Pháp, Tours) vẫn ở TOC.v1 Node 3 (f) | Sửa `points` nút "Tiếp cận bằng cách nào" |
 | 4 | Mục 2: bỏ "đặc biệt yêu thích Hugo", nhấn Tolstoy; thêm Zola, Anatole France, Dickens? | **Người dùng đã quyết**: dùng nguyên văn 2 ý TOC.v1 (b) của cả hai nút (giữ "đặc biệt yêu thích Victor Hugo"); không thêm Zola, Dickens, Anatole France; không câu trích nào (mục (c) không đưa lên slide); ảnh: Hugo, Shakespeare, Tolstoy | Phương án bám nguồn ở TOC.v1 Mục 2 Node 1 (f); đổi `people` (có sẵn ảnh p-zola, p-anatole-france) |
@@ -238,5 +265,5 @@ Không còn ảnh nào bị thiếu file (không bước nào hiện ô "ẢNH T
 
 - `bg-tourane-1858.jpg` và `bg-hien-phap-1946.jpg`: chỉ tải được bản rộng 500px (mạng chặn máy chủ ảnh gốc `upload.wikimedia.org`), nên đang để chìm sâu (`bgDim`). Có thể tải bản gốc từ Commons để thay.
 - Chưa có ảnh Bến Nhà Rồng/tàu Amiral Latouche-Tréville đúng nghĩa (đang dùng bưu ảnh trụ sở Messageries Maritimes, Sài Gòn).
-- Chưa có ảnh nhân vật Chúa Giê-su dạng png, ảnh bìa *Le Paria*, ảnh Bản yêu sách 1919 (TOC.v1 gợi ý, không bắt buộc).
+- Chưa có ảnh nhân vật Chúa Giê-su dạng png, ảnh bìa *Le Paria*, ảnh tờ Bản yêu sách 1919 (nút Bản yêu sách đang dùng tranh Hội nghị Versailles).
 - Ảnh `bg-liberty-statue.jpg`, `p-zola.jpg`, `p-anatole-france.jpg`, `p-lafayette.jpg`, `p-pbc.jpg`, `p-pct.jpg` còn trong thư mục nhưng v3 không dùng.

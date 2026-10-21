@@ -159,6 +159,12 @@ h1, h2, p, ul, figure, blockquote { margin: 0; padding: 0; }
   font-size: clamp(20px, min(2.3vw, 4.2vh), 42px); color: var(--son); line-height: 1.15;
 }
 .cover-sub::after { content: ""; display: block; width: 72px; height: 2px; background: var(--son); margin-top: 3.4vh; }
+/* v4: trang đầu kết luận nhắc lại tên đề tài, dòng phụ dùng cùng kiểu chữ với bìa */
+.is-end .k-section .lead {
+  margin-top: 2vh; font-family: var(--serif); font-style: italic; font-weight: 600; max-width: none;
+  font-size: clamp(20px, min(2.3vw, 4.2vh), 42px); color: var(--son); line-height: 1.15;
+}
+.is-end .k-section .lead::after { content: ""; display: block; width: 72px; height: 2px; background: var(--son); margin-top: 3.4vh; }
 
 /* ba chân dung: thấp → cao vừa phải, trái → phải; mép ảnh tan vào nền */
 .trio {

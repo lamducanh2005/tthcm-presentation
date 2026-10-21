@@ -33,3 +33,6 @@
 
 ## Tải thêm (cập nhật Mở đầu theo TOC.draft)
 - `bg-le-havre-1910.jpg` (1920px) ← [Le Havre, sortie du transatlantique "Caledonia", septembre 1910 - btv1b6914762w.jpg](https://commons.wikimedia.org/wiki/File:Le_Havre,_sortie_du_transatlantique_%22Caledonia%22,_septembre_1910_-_btv1b6914762w.jpg) — Agence Rol (Gallica/BnF), Public domain. Dùng cho nút "Những năm bôn ba" (ảnh minh họa bối cảnh, không phải con tàu Người đi)
+
+## Tải thêm trong v4
+- `bg-versailles-1919.jpg` (1920px) ← [Orpen, William (Sir) (RA) - The Signing of Peace in the Hall of Mirrors, Versailles, 28th June 1919 - Google Art Project.jpg](https://commons.wikimedia.org/wiki/File:Orpen,_William_(Sir)_(RA)_-_The_Signing_of_Peace_in_the_Hall_of_Mirrors,_Versailles,_28th_June_1919_-_Google_Art_Project.jpg) — Public domain. Dùng cho nút "Bản yêu sách của nhân dân An Nam" (ảnh minh họa bối cảnh Hội nghị Versailles)

@@ -12,7 +12,7 @@ Cả bài là một màn hình liền mạch trên nền giấy sáng, chia ba v
 - **Bên phải: ảnh nền chìm.** Tranh, bưu ảnh, ảnh tư liệu mờ dần về trái và xuống dưới. Khi có nhân vật, ảnh nền mờ bớt và chân dung khung vòm hiện rõ phía trước. Ảnh độ phân giải thấp (`bgDim`) được chìm sâu hơn.
 - **Dưới đáy: dòng bố cục.** Trục chính gồm 6 phần, không ghi năm, không ghi "Ý N" hay "Mục N". Đến phần nào thì nhánh của phần ấy rẽ xuống; mỗi nút nhánh là một Node của TOC, tức một bước trình chiếu.
 
-**Hải trình:** mỗi lần đổi địa danh, một sợi dây đỏ nét đứt chạy từ A tới B cùng nhịp camera. Tới nơi thì đuôi dây rút dần về B rồi biến mất, không để lại vết. Chặng "Những năm bôn ba" (Sài Gòn → Paris) đi đường biển qua Singapore, Colombo, Aden, Suez, Marseille, rồi vòng bờ Tây châu Phi (Gibraltar, Dakar) → New York → London → Paris; dây dài nên đầu dây chạy lâu hơn (tối đa 6 giây), camera thu xa thấy trọn Đại Tây Dương. Lộ trình là phác họa các mốc, không phải hải trình chính xác từng con tàu.
+**Hải trình:** mỗi lần đổi địa danh, một sợi dây đỏ nét đứt chạy từ A tới B cùng nhịp camera. Tới nơi thì đuôi dây rút dần về B rồi biến mất, không để lại vết. Nút "Ra đi tìm đường cứu nước" chạy một chặng duy nhất Sài Gòn → Marseille theo đường biển qua Singapore, Colombo, Aden, Suez (thuộc tính `from` của nút); nút "Những năm bôn ba" không có hải trình, camera chỉ phóng vào châu Âu.
 
 **Bìa:** ba chân dung HCM_1 → HCM_3 → HCM_4, cao dần, chênh nhẹ, không chú thích, không ảnh nền, không dòng gợi ý phím. Kicker chỉ là "Tư tưởng Hồ Chí Minh".
 
@@ -100,20 +100,20 @@ Các chỗ ứng với "Quyết định tạm" được đánh dấu `QĐ tạm 
 ### Mở đầu
 **Bìa** — kicker *Tư tưởng Hồ Chí Minh* — **Tư tưởng và văn hóa phương Tây** — *góp phần hình thành tư tưởng Hồ Chí Minh*. Chân dung HCM_1, HCM_3, HCM_4. Bản đồ toàn thế giới.
 
-**Ra đi — Ra đi tìm đường cứu nước** *(Sài Gòn; nền bg-saigon)*
+**Ra đi — Ra đi tìm đường cứu nước** *(hải trình Sài Gòn → Marseille; nền bg-saigon)*
 - Ngày 5/6/1911, Nguyễn Tất Thành, lấy tên Văn Ba, làm phụ bếp trên tàu Amiral Latouche-Tréville, rời Bến cảng Nhà Rồng sang Pháp.
 - Cần Vương, Đông Du, Duy Tân lần lượt thất bại: đất nước khủng hoảng đường lối
 - Người chọn sang phương Tây để xem tận nơi
-- Trích: "Tôi muốn đi ra ngoài, xem nước Pháp và các nước khác. Sau khi xem xét họ làm như thế nào, tôi sẽ trở về giúp đồng bào chúng ta." — Nguyễn Tất Thành, về mục đích ra đi
+- Trích: "Tôi muốn đi ra ngoài, xem nước Pháp và các nước khác. Sau khi xem xét họ làm như thế nào, tôi sẽ trở về giúp đồng bào chúng ta." — Nguyễn Tất Thành khi nói về mục đích ra đi
 
-**Bôn ba — Những năm bôn ba** *(hải trình Sài Gòn → Marseille → châu Phi → New York → London → Paris; camera thu xa Đại Tây Dương; nền bg-le-havre-1910)*
+**Bôn ba — Những năm bôn ba** *(không hải trình; camera phóng vào châu Âu; nền bg-le-havre-1910)*
 - *Tinh hoa văn hóa, tư tưởng phương Tây đã góp phần hình thành nên tư tưởng của Người.*
 - 1911–1917: làm thuê trên tàu biển, đi qua châu Phi, sang Mỹ, sang Anh, cuối 1917 trở lại Pháp
 - Vừa làm vừa tự học: tiếp xúc tận nơi một nền văn hóa, tư tưởng hoàn toàn mới
 - Ba dòng chảy: Khai sáng và dân chủ · văn học nhân đạo · Thiên Chúa giáo
 
 ### Triết học Khai sáng Pháp
-**Mở phần:** Lý trí, quyền tự nhiên, chủ quyền nhân dân: những ý niệm Người gặp trên đường tìm hiểu nước Pháp. *(Paris; nền bg-geoffrin)*
+**Mở phần:** Lý trí, quyền tự nhiên, chủ quyền nhân dân: những ý niệm Người gặp trên đường tìm hiểu nước Pháp. *(Paris; nền bg-geoffrin)* Từ nút đầu tiên, camera đứng yên ở Pháp (Paris, zoom 6) cho hết mục; các nút trong mục không hiện tag cạnh kicker (`noTag` của phần).
 
 **Thời kỳ Khai sáng — Thế kỷ của lý trí** *(Paris)*
 - Phong trào tư tưởng châu Âu, đỉnh cao ở Pháp thế kỷ XVIII: "thế kỷ ánh sáng".
@@ -127,26 +127,26 @@ Các chỗ ứng với "Quyết định tạm" được đánh dấu `QĐ tạm 
 - **Montesquieu:** Tác phẩm *Tinh thần pháp luật* – Đề xuất thuyết Tam quyền phân lập nhằm kiểm soát quyền lực nhà nước.
 - **Rousseau:** Tác phẩm *Khế ước xã hội* – Khẳng định chủ quyền thuộc về nhân dân, nhà nước là sản phẩm của khế ước xã hội.
 
-**Con đường tiếp cận — Người tiếp cận tư tưởng Khai sáng bằng cách nào** *(Huế, ghim Vinh/Huế/Phan Thiết; chân dung HCM_1; nền bg-quoc-hoc-hue)* — 2 ý nguyên văn của người dùng (giữ cả "(cần làm rõ)", "sau hơn")
+**Con đường tiếp cận — Tiếp cận tư tưởng Khai sáng** *(chân dung HCM_1; nền bg-quoc-hoc-hue)* — 2 ý nguyên văn của người dùng (giữ cả "(cần làm rõ)", "sau hơn")
 - Trích: "Khi tôi độ mười ba tuổi, lần đầu tiên tôi được nghe ba chữ Pháp: Tự do, Bình đẳng, Bác ái… Và từ thuở ấy, tôi rất muốn làm quen với nền văn minh Pháp, muốn tìm xem những gì ẩn đằng sau những chữ ấy." — Nguyễn Ái Quốc trả lời báo Ogoniok, 1923
 - Ngay từ khi còn học ở Trường Bản Xứ ở Vinh (cần làm rõ) và Trường Quốc học Huế, Nguyễn Tất Thành đã lần đầu tiếp xúc với các tác phẩm của các nhà tư tưởng Khai sáng Pháp ở thế kỷ XVIII.
 - Trong thời gian hoạt động tại Pháp, Người có điều kiện nghiên cứu sau hơn các học thuyết này, tham gia các câu lạc bộ chính trị và tranh luận trực tiếp về các giá trị dân chủ.
 
-**Sự kế thừa — Kế thừa: nhân dân làm chủ, nhà nước pháp quyền** *(Hà Nội; nền bg-hien-phap-1946)*
+**Sự kế thừa — Sự kế thừa tư tưởng** *(nền bg-hien-phap-1946)*
 - Quyền lực thuộc về nhân dân: nước ta là nước dân chủ, mọi quyền bính của nhân dân (tinh thần "chủ quyền nhân dân" của Rousseau).
 - Nhà nước pháp quyền, đề cao Hiến pháp và pháp luật: "Trăm điều phải có thần linh pháp quyền".
 - Tự do, bình đẳng là quyền tự nhiên, không ai được xâm phạm.
 - Trích: "Bảy xin Hiến pháp ban hành, / Trăm điều phải có thần linh pháp quyền." — Nguyễn Ái Quốc, Việt Nam yêu cầu ca (1922)
 
-**Sự phát huy — Vượt lên giới hạn của cách mạng tư sản** *(Hà Nội, thu xa; nền bg-liberte)* — 2 ý nguyên văn của người dùng
+**Sự phát huy — Vượt lên giới hạn của cách mạng tư sản** *(nền bg-liberte)* — 2 ý nguyên văn của người dùng
 - Các nhà khai sáng Pháp mới chỉ dừng lại ở giải phóng giai cấp tư sản và quyền tự do cá nhân trên danh nghĩa.
 - Hồ Chí Minh mở rộng quyền con người thành quyền dân tộc tự quyết, gắn độc lập dân tộc với tự do, hạnh phúc.
 - Trích: "Cách mệnh Pháp cũng như cách mệnh Mỹ, nghĩa là cách mệnh tư bản, cách mệnh không đến nơi, tiếng là cộng hoà và dân chủ, kỳ thực trong thì nó tước lục công nông, ngoài thì nó áp bức thuộc địa." — Nguyễn Ái Quốc, Đường Kách mệnh (1927)
 
 ### Văn học phương Tây
-**Mở phần — Giá trị nhân văn trong văn học phương Tây** *(chỉ tiêu đề, không câu dẫn; nền bg-cosette)*
+**Mở phần — Giá trị nhân văn trong văn học phương Tây** *(chỉ tiêu đề, không câu dẫn; nền bg-cosette)* Các nút trong mục không có tag, cả cạnh kicker lẫn ở dòng bố cục (`noTag`, `noFlowTag` của phần).
 
-**Tiếp cận — Con đường tiếp cận** *(Paris, thu xa thấy London; chân dung Hugo, Shakespeare, Tolstoy; nền bg-sainte-genevieve)* — 2 ý nguyên văn của người dùng (TOC.v1 Mục 2 Node 1 (b)), không câu trích
+**Tiếp cận — Văn học phương Tây với Nguyễn Ái Quốc** *(Paris, thu xa thấy London; chân dung Hugo, Shakespeare, Tolstoy; nền bg-sainte-genevieve)* — 2 ý nguyên văn của người dùng (TOC.v1 Mục 2 Node 1 (b)), không câu trích
 - Khi còn ở châu Âu, Nguyễn Ái Quốc vừa làm thuê vừa dành thời gian tại các thư viện để đọc kiệt tác văn học phương Tây.
 - Người đặc biệt yêu thích Victor Hugo, đọc vở kịch của Shakespeare, và các tác phẩm của đại văn hào Lev Tolstoy.
 

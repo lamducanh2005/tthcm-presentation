@@ -14,7 +14,11 @@
      qfirst: true → câu trích đứng trước gạch đầu dòng
      img / people: ảnh nhân vật (khung vòm, bên phải). people: [{ img, name, years, note }]
      coda:   một dòng nhỏ cuối cùng
+     noTag:  true (ở phần) → ẩn tag cạnh kicker cho mọi nút của phần (nhãn ở dòng bố cục vẫn giữ)
+     noFlowTag: true (ở phần) → ẩn luôn chữ tag nhỏ trên nhãn nút ở dòng bố cục
+     noKicker: true → ẩn cả dòng kicker + tag ở bảng nội dung (nhãn ở dòng bố cục vẫn giữ)
      at:     địa danh camera bản đồ đáp xuống (xem places); khác nơi trước thì có hải trình
+     from:   địa danh xuất phát của hải trình (mặc định là địa danh của bước trước)
      zoom:   mức zoom riêng (mặc định lấy của phần)
      center: [kinh độ, vĩ độ] tâm camera riêng (mặc định là địa danh "at"); dùng khi cần thu xa thấy trọn hải trình
      bg / bgCap: ảnh nền chìm riêng (mặc định lấy của phần); ảnh thiếu sẽ hiện ô "ẢNH THIẾU"
@@ -58,23 +62,23 @@ window.DECK = {
       bgCap: "Trụ sở hãng Messageries Maritimes, Sài Gòn (bưu ảnh đầu thế kỷ XX)",
       items: [
         {
-          /* Node 1 (TOC.draft): gộp nút "Bến Nhà Rồng" cũ; camera đáp xuống Sài Gòn (Bến Nhà Rồng) */
-          kind: "story", kicker: "Mở đầu", tag: "Ra đi", label: "Tìm đường cứu nước",
+          /* Node 1 (TOC.draft): gộp nút "Bến Nhà Rồng" cũ; hải trình Bến Nhà Rồng (Sài Gòn) → cảng Marseille */
+          kind: "story", noKicker: true, tag: "Ra đi", label: "Tìm đường cứu nước",
           title: "Ra đi tìm đường cứu nước",
           points: [
             "Các phong trào yêu nước trong nước (Cần Vương, Đông Du, Duy Tân) lần lượt thất bại; đất nước khủng hoảng đường lối",
-            "Ngày 5/6/1911, Nguyễn Tất Thành (21 tuổi) lấy tên Văn Ba, làm phụ bếp trên tàu Amiral Latouche-Tréville, rời Bến cảng Nhà Rồng sang Pháp"
+            "Ngày 5/6/1911, Nguyễn Tất Thành lấy tên Văn Ba, làm phụ bếp trên tàu Amiral Latouche-Tréville, rời Bến cảng Nhà Rồng sang Pháp"
           ],
           quote: {
             text: "Tôi muốn đi ra ngoài, xem nước Pháp và các nước khác. Sau khi xem xét họ làm như thế nào, tôi sẽ trở về giúp đồng bào chúng ta.",
-            src: "Nguyễn Tất Thành, về mục đích ra đi"
+            src: "Nguyễn Tất Thành khi nói về mục đích ra đi"
           },
-          at: "Sài Gòn", zoom: 2.8
+          from: "Sài Gòn", at: "Marseille", center: [99, 24], zoom: 1.5
         },
         {
           /* Node 2 (TOC.draft, mới). QĐ tạm 10: gộp node "Luận đề" cũ thành dòng nhấn cuối nút này.
-             Hải trình Sài Gòn → Marseille → vòng châu Phi → New York → London → Paris (SEA_VIA trong app.js) */
-          kind: "idea", kicker: "Mở đầu", tag: "Bôn ba", label: "Những năm bôn ba",
+             Không hải trình; camera phóng vào châu Âu */
+          kind: "idea", noKicker: true, tag: "Bôn ba", label: "Những năm bôn ba",
           title: "Những năm bôn ba",
           points: [
             "1911–1917: làm thuê trên tàu biển và trên đất khách; đi qua châu Phi, sang Mỹ, sang Anh, cuối 1917 trở lại Pháp",
@@ -83,7 +87,7 @@ window.DECK = {
           ],
           bg: "images/bg-le-havre-1910.jpg",
           bgCap: "Tàu viễn dương rời cảng Le Havre, 1910 (Agence Rol, ảnh minh họa bối cảnh)",
-          at: "Paris", center: [-32, 15], zoom: 1.05
+          center: [6, 48], zoom: 4
         }
       ]
     },
@@ -93,7 +97,7 @@ window.DECK = {
       id: "khai-sang",
       rail: "Triết học Khai sáng Pháp",
       kicker: "Triết học Khai sáng Pháp",
-      place: "Paris",
+      noTag: true,
       title: "Triết học Khai sáng Pháp",
       lead: "Lý trí, quyền tự nhiên, chủ quyền nhân dân: những ý niệm Người gặp trên đường tìm hiểu nước Pháp.",
       bg: "images/bg-geoffrin.jpg",
@@ -101,6 +105,7 @@ window.DECK = {
       map: { at: "Paris", center: [2.6, 46.6], zoom: 5, hl: [250], pins: ["Paris", "Genève", "Bordeaux"] },
       items: [
         {
+          /* camera đứng yên ở Pháp (Paris, zoom 6) suốt cả mục */
           kind: "story", tag: "Thời kỳ Khai sáng", label: "Thế kỷ của lý trí",
           title: "Thế kỷ của lý trí",
           text: "Phong trào tư tưởng châu Âu, đỉnh cao ở Pháp thế kỷ XVIII: “thế kỷ ánh sáng”.",
@@ -128,13 +133,13 @@ window.DECK = {
           ],
           bg: "images/bg-encyclopedie.jpg",
           bgCap: "Tranh khắc mở đầu bộ Bách khoa toàn thư của Diderot (C.-N. Cochin, 1772)",
-          at: "Paris", zoom: 5.5
+          at: "Paris", zoom: 6
         },
         {
           /* TOC.v1 Node 3 (b): nguyên văn 2 ý của người dùng, không chỉnh sửa (giữ cả "(cần làm rõ)", "sau hơn");
              phương án bám nguồn (Phan Thiết, Đảng Xã hội Pháp) xem TOC.v1 Node 3 (f), người dùng tự quyết */
           kind: "story", tag: "Con đường tiếp cận", label: "Tiếp cận bằng cách nào",
-          title: "Người tiếp cận tư tưởng Khai sáng bằng cách nào",
+          title: "Tiếp cận tư tưởng Khai sáng",
           points: [
             "Ngay từ khi còn học ở Trường Bản Xứ ở Vinh (cần làm rõ) và Trường Quốc học Huế, Nguyễn Tất Thành đã lần đầu tiếp xúc với các tác phẩm của các nhà tư tưởng Khai sáng Pháp ở thế kỷ XVIII.",
             "Trong thời gian hoạt động tại Pháp, Người có điều kiện nghiên cứu sau hơn các học thuyết này, tham gia các câu lạc bộ chính trị và tranh luận trực tiếp về các giá trị dân chủ."
@@ -147,12 +152,12 @@ window.DECK = {
           img: "images/HCM_1.png",
           bg: "images/bg-quoc-hoc-hue.jpg",
           bgCap: "Một lớp học ở trường Quốc học Huế (ảnh tư liệu thời Pháp thuộc)",
-          at: "Huế", zoom: 4.5
+          at: "Paris", zoom: 6
         },
         {
           /* TOC.v1 Node 4 (b) */
           kind: "story", tag: "Sự kế thừa", label: "Dân làm chủ, pháp quyền",
-          title: "Kế thừa: nhân dân làm chủ, nhà nước pháp quyền",
+          title: "Sự kế thừa tư tưởng",
           points: [
             "Quyền lực thuộc về nhân dân: nước ta là nước dân chủ, mọi quyền bính của nhân dân (tinh thần “chủ quyền nhân dân” của Rousseau).",
             "Nhà nước pháp quyền, đề cao Hiến pháp và pháp luật: “Trăm điều phải có thần linh pháp quyền”.",
@@ -164,7 +169,7 @@ window.DECK = {
           },
           bg: "images/bg-hien-phap-1946.jpg", bgDim: true,
           bgCap: "Hiến pháp nước Việt Nam Dân chủ Cộng hòa năm 1946 (Cục Văn thư và Lưu trữ nhà nước)",
-          at: "Hà Nội", zoom: 4.5
+          at: "Paris", zoom: 6
         },
         {
           /* TOC.v1 Node 5 (b): nguyên văn 2 ý của người dùng */
@@ -180,7 +185,7 @@ window.DECK = {
           },
           bg: "images/bg-liberte.jpg",
           bgCap: "Nữ thần Tự do dẫn dắt nhân dân, Eugène Delacroix (1830)",
-          at: "Hà Nội", zoom: 2.6
+          at: "Paris", zoom: 6
         }
       ]
     },
@@ -190,7 +195,7 @@ window.DECK = {
       id: "van-hoc",
       rail: "Văn học phương Tây",
       kicker: "Văn học phương Tây",
-      place: "London · Paris",
+      noTag: true, noFlowTag: true,
       title: "Giá trị nhân văn trong văn học phương Tây",
       bg: "images/bg-cosette.jpg",
       bgCap: "Cô bé Cosette — minh họa Những người khốn khổ, Émile Bayard (1862)",
@@ -200,7 +205,7 @@ window.DECK = {
           /* TOC.v1 Mục 2 Node 1: chỉ tiêu đề (a) + nguyên văn 2 ý (b); (c) không đưa lên slide.
              Ảnh theo (d): Hugo, Shakespeare, Tolstoy. Bản đồ theo (e): Paris, thu xa thấy cả London */
           kind: "people", tag: "Tiếp cận", label: "Con đường tiếp cận",
-          title: "Con đường tiếp cận",
+          title: "Văn học phương Tây với Nguyễn Ái Quốc",
           points: [
             "Khi còn ở châu Âu, Nguyễn Ái Quốc vừa làm thuê vừa dành thời gian tại các thư viện để đọc kiệt tác văn học phương Tây.",
             "Người đặc biệt yêu thích Victor Hugo, đọc vở kịch của Shakespeare, và các tác phẩm của đại văn hào Lev Tolstoy."
@@ -237,7 +242,6 @@ window.DECK = {
       id: "nhan-quyen",
       rail: "Dân chủ, nhân quyền, tự do",
       kicker: "Dân chủ · nhân quyền · tự do",
-      place: "Philadelphia · Paris · Hà Nội",
       title: "Tư tưởng dân chủ, nhân quyền, tự do",
       motto: ["Liberté", "Égalité", "Fraternité"],
       lead: "Hai bản tuyên ngôn của cách mạng Mỹ và Pháp, và cách Người “suy rộng ra”.",
@@ -305,7 +309,6 @@ window.DECK = {
       id: "thien-chua",
       rail: "Thiên Chúa giáo",
       kicker: "Thiên Chúa giáo",
-      place: "Roma · Vatican",
       title: "Thiên Chúa giáo",
       lead: "Một nền tảng của văn hóa phương Tây: lòng bác ái, tinh thần hy sinh vì con người.",
       bg: "images/bg-vatican.jpg",
@@ -370,7 +373,6 @@ window.DECK = {
       kind: "end",
       rail: "Kết luận",
       kicker: "Kết luận",
-      place: "Hà Nội",
       title: "Chọn lọc, không sao chép",
       lead: "Phương Tây là một nguồn, không phải điểm đến.",
       bg: "images/bg-tours-1920.jpg",

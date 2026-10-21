@@ -42,10 +42,7 @@
   // đường biển Sài Gòn → Marseille đi qua Singapore, Colombo, Aden, kênh Suez
   const SG_MRS = [[103.8, 1.26], [79.85, 6.93], [45.0, 12.8], [32.55, 29.95], [32.3, 31.26], [15.6, 37.5]];
   const SEA_VIA = {
-    "Sài Gòn>Marseille": SG_MRS,
-    // "Những năm bôn ba" (1911–1917): Sài Gòn → Marseille → vòng châu Phi (Gibraltar, Dakar) → New York → London → Paris.
-    // Phác họa các mốc, không phải hải trình chính xác của từng con tàu.
-    "Sài Gòn>Paris": [...SG_MRS, [5.37, 43.30], [-5.6, 36.0], [-17.44, 14.69], [-74.01, 40.71], [-5.5, 49.9], [-0.13, 51.51]]
+    "Sài Gòn>Marseille": SG_MRS
   };
   function via(a, b) {
     if (SEA_VIA[a + ">" + b]) return SEA_VIA[a + ">" + b];
@@ -120,7 +117,7 @@
     const center = it && it.center ? it.center : it && it.at ? places[it.at] : m.center || places[at];
     const pins = (m.pins || []).slice();
     if (at && !pins.includes(at)) pins.push(at);
-    return { at, center, zoom: (it && it.zoom) || m.zoom || 1, fx: m.fx, fy: m.fy, hl: m.hl || [], pins };
+    return { at, from: it && it.from, center, zoom: (it && it.zoom) || m.zoom || 1, fx: m.fx, fy: m.fy, hl: m.hl || [], pins };
   }
 
   /* camera: view = [x, y, w, fx, fy] — điểm (x, y) của thế giới, bề rộng w, đặt tại tiêu điểm (fx, fy) của màn hình */
@@ -305,10 +302,9 @@
   const panel = $("panel");
   function fillPanel(st) {
     const s = D.sections[st.si], it = itemOf(st), kind = it ? it.kind : "section";
-    panel.className = "panel k-" + kind + (it && it.qfirst ? " q-first" : "");
+    panel.className = "panel k-" + kind + (it && it.qfirst ? " q-first" : "") + (it && it.noKicker ? " no-kicker" : "");
     $("pKicker").textContent = (it && it.kicker) || s.kicker || "";
-    $("pTag").textContent = it ? it.tag || TAG[kind] : "";
-    $("pPlace").textContent = it ? "" : s.place || "";
+    $("pTag").textContent = it && !s.noTag ? it.tag || TAG[kind] : "";
     $("pMotto").innerHTML = !it && s.motto ? s.motto.map((m) => `<span>${esc(m)}</span>`).join("") : "";
 
     let title = "", meta = "", lead = "";
@@ -405,7 +401,7 @@
     c.dataset.step = n.step;
     c.innerHTML = n.lvl === 1
       ? `<div class="in" data-step="${n.step}"><span>${esc(n.s.rail)}</span></div>`
-      : `<div class="in" data-step="${n.step}"><b>${esc(n.it.tag || TAG[n.it.kind])}</b><span>${esc(n.it.label || n.it.title || "")}</span></div>`;
+      : `<div class="in" data-step="${n.step}">${n.parent.s.noFlowTag ? "" : `<b>${esc(n.it.tag || TAG[n.it.kind])}</b>`}<span>${esc(n.it.label || n.it.title || "")}</span></div>`;
     capsEl.appendChild(c);
     n.cap = c;
   });
@@ -683,11 +679,12 @@
 
     // bản đồ + hải trình
     const m = mapOf(st);
-    const sail = !instant && m.at && prevAt && m.at !== prevAt;
+    const origin = m.from || prevAt;
+    const sail = !instant && m.at && origin && m.at !== origin;
     // chặng càng xa, tàu chạy càng lâu (camera bay cùng nhịp)
-    const dist = sail ? d3.geoDistance(places[prevAt], places[m.at]) : 0;
+    const dist = sail ? d3.geoDistance(places[origin], places[m.at]) : 0;
     const dur = flyTo(m, instant, dist > .5 ? 3000 : dist > .05 ? 2000 : 1300);
-    if (sail) startVoyage(prevAt, m.at, dur);
+    if (sail) startVoyage(origin, m.at, dur);
     else if (m.at !== prevAt) stopVoyage();
     prevAt = m.at;
     document.querySelectorAll("#hl path").forEach((p) => p.classList.toggle("on", m.hl.includes(+p.dataset.id)));

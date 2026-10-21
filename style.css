@@ -140,6 +140,7 @@ h1, h2, p, ul, figure, blockquote { margin: 0; padding: 0; }
 }
 .kicker .tag { color: var(--ink-3); letter-spacing: .18em; }
 .kicker .tag:empty { display: none; }
+.no-kicker .kicker { display: none; }
 .kicker .tag::before { content: "·"; margin-right: 12px; color: var(--gold); }
 .gem { width: 8px; height: 8px; transform: rotate(45deg); background: var(--son); box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--gold); flex: none; }
 
@@ -199,7 +200,6 @@ body:not(.is-cover) .trio::before { opacity: 0; }
 .panel.swap > *, .is-cover .panel > * { opacity: 0; transform: translateY(10px); }
 .panel > :empty { display: none; }
 
-.place { margin-top: 1.2vh; font-family: var(--serif); font-style: italic; font-weight: 600; font-size: clamp(16px, 1.35vw, 24px); color: var(--ink-3); }
 .title {
   margin-top: 1.2vh; font-family: var(--serif); font-weight: 700; line-height: 1; letter-spacing: -.005em;
   font-size: clamp(34px, min(4.4vw, 7.6vh), 82px); color: var(--ink); text-wrap: balance;

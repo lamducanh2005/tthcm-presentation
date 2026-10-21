@@ -1,4 +1,4 @@
-/* HẢI TRÌNH v2
+/* HẢI TRÌNH v3 (cơ chế giữ nguyên từ v2; v3 thêm points/quote/qfirst/coda/summary, ảnh nhân vật cho mọi kind, ô ẢNH THIẾU)
    - Bản đồ ở bên trái (mờ dần về phải), ảnh nền chìm ở bên phải (mờ dần về trái).
    - Hải trình: mỗi lần đổi địa danh, một sợi dây đỏ chạy từ A tới B cùng nhịp camera;
      tới nơi thì đuôi dây rút dần về B rồi biến mất, không để lại vết trên bản đồ.
@@ -10,11 +10,15 @@
   const $ = (id) => document.getElementById(id);
   const body = document.body;
   const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+  // markdown tối giản sau khi escape: **đậm** → <strong>, *nghiêng* → <em>; dấu * đơn lẻ giữ nguyên
+  const rich = (s) => esc(s)
+    .replace(/\*\*([^\s*](?:[^*\n]*?[^\s*])?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^\s*](?:[^*\n]*?[^\s*])?)\*/g, "<em>$1</em>");
   const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
   const f1 = (v) => Math.round(v * 10) / 10;
   const f2 = (v) => Math.round(v * 100) / 100;
   const STILL = /still/.test(location.search); // tắt hiệu ứng (để chụp ảnh kiểm tra)
-  const TAG = { person: "Nhân vật", people: "Nhân vật", story: "Câu chuyện", quote: "Trích dẫn", idea: "Ý nghĩa", take: "Rút ra" };
+  const TAG = { person: "Nhân vật", people: "Nhân vật", story: "Nội dung", quote: "Trích dẫn", idea: "Ý nghĩa", take: "Rút ra", summary: "Tổng kết" };
 
   /* ---------- bước trình chiếu: mỗi phần + từng nút nhánh của nó ---------- */
   const steps = [];
@@ -36,7 +40,13 @@
   const places = D.places;
 
   // đường biển Sài Gòn → Marseille đi qua Singapore, Colombo, Aden, kênh Suez
-  const SEA_VIA = { "Sài Gòn>Marseille": [[103.8, 1.26], [79.85, 6.93], [45.0, 12.8], [32.55, 29.95], [32.3, 31.26], [15.6, 37.5]] };
+  const SG_MRS = [[103.8, 1.26], [79.85, 6.93], [45.0, 12.8], [32.55, 29.95], [32.3, 31.26], [15.6, 37.5]];
+  const SEA_VIA = {
+    "Sài Gòn>Marseille": SG_MRS,
+    // "Những năm bôn ba" (1911–1917): Sài Gòn → Marseille → vòng châu Phi (Gibraltar, Dakar) → New York → London → Paris.
+    // Phác họa các mốc, không phải hải trình chính xác của từng con tàu.
+    "Sài Gòn>Paris": [...SG_MRS, [5.37, 43.30], [-5.6, 36.0], [-17.44, 14.69], [-74.01, 40.71], [-5.5, 49.9], [-0.13, 51.51]]
+  };
   function via(a, b) {
     if (SEA_VIA[a + ">" + b]) return SEA_VIA[a + ">" + b];
     if (SEA_VIA[b + ">" + a]) return SEA_VIA[b + ">" + a].slice().reverse();
@@ -106,7 +116,8 @@
   function mapOf(st) {
     const s = D.sections[st.si], m = s.map || {}, it = itemOf(st);
     const at = (it && it.at) || m.at || null;
-    const center = it && it.at ? places[it.at] : m.center || places[at];
+    // it.center: tâm camera riêng (vd. thu xa để thấy trọn một hải trình dài), địa danh "at" vẫn là đích của dây
+    const center = it && it.center ? it.center : it && it.at ? places[it.at] : m.center || places[at];
     const pins = (m.pins || []).slice();
     if (at && !pins.includes(at)) pins.push(at);
     return { at, center, zoom: (it && it.zoom) || m.zoom || 1, fx: m.fx, fy: m.fy, hl: m.hl || [], pins };
@@ -147,6 +158,8 @@
   function startVoyage(a, b, dur) {
     voyNode.interrupt();
     voy = { a, b, pts: legPoints(a, b), head: 0, tail: 0 };
+    // hải trình nhiều chặng (dài hơn hẳn đường bay của camera) thì đầu dây chạy lâu hơn, tối đa 6 giây
+    dur = clamp(voy.pts.length * 7, dur, 6000);
     voyNode.transition().duration(dur).ease(d3.easeCubicInOut)
       .tween("head", () => (s) => { if (voy) { voy.head = s; drawOverlay(); } })
       .transition().delay(260).duration(1300).ease(d3.easeCubicInOut)
@@ -206,27 +219,69 @@
   }
 
   /* ================= ẢNH NỀN CHÌM (2 lớp để chuyển mượt) ================= */
-  const ghosts = [...document.querySelectorAll(".ghost-img")];
-  let gi = 0, curBg = null;
+  // Mỗi ảnh nền là một lớp riêng. Ảnh của các bước lân cận được bật "ready" (độ mờ gần 0, CSS .ghost-img.ready)
+  // nên được giải mã và vẽ trước, trong lúc người nói còn đang ở bước hiện tại. Tới lúc chuyển chỉ còn đổi
+  // độ trong suốt → không khựng. (Nếu chỉ đặt src lúc cần, trình duyệt giải mã + vẽ ảnh đúng lúc nó hiện:
+  // 30–60ms, rớt khung.) Chỉ giữ vài ảnh lân cận chứ không phải tất cả, vì mỗi lớp có mask đều phải ghép lại mỗi khung.
+  const ghostEl = $("ghost"), ghostOf = {};
+  const decoded = (img) => (img.decode ? img.decode().catch(() => {}) : Promise.resolve());
+  new Set(D.sections.flatMap((s) => [s.bg, ...(s.items || []).map((it) => it.bg)]).filter(Boolean)).forEach((src) => {
+    const im = document.createElement("img");
+    im.className = "ghost-img"; im.alt = ""; im.decoding = "async";
+    // ảnh chưa có (chưa tải về): thay bằng ô "ẢNH THIẾU" dễ nhận biết, giữ nguyên các lớp on/ready
+    im.onerror = () => {
+      const ph = document.createElement("div");
+      ph.className = "ghost-missing " + im.className.replace("ghost-img", "").trim();
+      ph.innerHTML = `<span>ẢNH THIẾU<br><b>${esc(src)}</b></span>`;
+      im.replaceWith(ph);
+      ghostOf[src] = ph;
+    };
+    im.src = src;
+    ghostEl.appendChild(im);
+    ghostOf[src] = im;
+  });
+  let curBg = null;
   function setGhost(src) {
     if (src === curBg) return;
+    if (curBg) ghostOf[curBg].classList.remove("on");
     curBg = src;
-    ghosts[gi].classList.remove("on");
-    gi = 1 - gi;
-    if (src) {
-      const el = ghosts[gi];
-      el.style.backgroundImage = `url("${src}")`;
-      requestAnimationFrame(() => el.classList.add("on"));
-    }
+    if (src) ghostOf[src].classList.add("on");
+  }
+  const bgOf = (st) => { const it = itemOf(st); return (it && it.bg) || D.sections[st.si].bg || null; };
+  function prepAround(i) {
+    const near = steps.slice(Math.max(0, i - 1), i + 3);
+    const need = new Set(near.map(bgOf));
+    for (const src in ghostOf) ghostOf[src].classList.toggle("ready", need.has(src));
+    // chân dung kết: gắn ảnh khi phần kết luận đã ở gần (trước đó không có src → không vẽ)
+    const endNear = near.find((st) => D.sections[st.si].portrait);
+    const ep = $("endPortrait");
+    if (endNear && !ep.getAttribute("src")) ep.src = D.sections[endNear.si].portrait;
+  }
+  // nạp sẵn và giải mã trước mọi ảnh, giữ tham chiếu để trình duyệt không bỏ khỏi bộ nhớ đệm
+  const warm = [];
+  function prewarm() {
+    const urls = new Set();
+    D.sections.forEach((s) => {
+      [s.portrait, ...(s.portraits || [])].forEach((u) => u && urls.add(u));
+      (s.items || []).forEach((it) => {
+        [it.img, ...((it.people || []).map((p) => p.img))].forEach((u) => u && urls.add(u));
+      });
+    });
+    let chain = Promise.resolve();
+    urls.forEach((u) => {
+      chain = chain.then(() => { const im = new Image(); im.decoding = "async"; im.src = u; warm.push(im); return decoded(im); });
+    });
   }
 
   /* ================= CHÂN DUNG NHÂN VẬT (bên phải) ================= */
   const fig = $("figure");
   let figKey = null, figTimer = 0;
+  // nút nào có people hoặc img (bất kể kind) thì hiện chân dung khung vòm bên phải
+  const figList = (it) => !it ? null
+    : it.people && it.people.length ? it.people
+    : it.img ? [{ img: it.img, name: it.imgName || it.title || "" }] : null;
   function setFigure(it, instant) {
-    const list = !it ? null
-      : it.kind === "person" ? [{ img: it.img, name: it.title }]
-      : it.kind === "people" ? it.people : null;
+    const list = figList(it);
     const key = list ? list.map((p) => p.img).join("|") : null;
     if (key === figKey) return;
     const had = !!figKey;
@@ -235,13 +290,14 @@
     clearTimeout(figTimer);
     figTimer = setTimeout(() => {
       if (!list) { fig.innerHTML = ""; return; }
-      fig.className = "figure" + (list.length > 1 ? " duo" : "");
+      fig.className = "figure" + (list.length > 1 ? " duo" : "") + (list.length > 2 ? " n3" : "");
       fig.innerHTML = list.map((p) =>
-        `<div class="person"><div class="frame"><img src="${p.img}" alt="${esc(p.name)}"></div>` +
+        `<div class="person${/\.png$/i.test(p.img) ? " png" : ""}"><div class="frame"><img src="${p.img}" alt="${esc(p.name)}"></div>` +
         (list.length > 1 ? `<b>${esc(p.name)}</b><small>${esc(p.years || "")}</small><p>${esc(p.note || "")}</p>` : "") +
         `</div>`).join("");
-      if (instant) fig.classList.add("on");
-      else requestAnimationFrame(() => requestAnimationFrame(() => fig.classList.add("on")));
+      if (instant) { fig.classList.add("on"); return; }
+      Promise.all([...fig.querySelectorAll("img")].map(decoded))
+        .then(() => { if (figKey === key) fig.classList.add("on"); });
     }, instant || !had ? 0 : 420);
   }
 
@@ -249,8 +305,8 @@
   const panel = $("panel");
   function fillPanel(st) {
     const s = D.sections[st.si], it = itemOf(st), kind = it ? it.kind : "section";
-    panel.className = "panel k-" + kind;
-    $("pKicker").textContent = s.kicker || "";
+    panel.className = "panel k-" + kind + (it && it.qfirst ? " q-first" : "");
+    $("pKicker").textContent = (it && it.kicker) || s.kicker || "";
     $("pTag").textContent = it ? it.tag || TAG[kind] : "";
     $("pPlace").textContent = it ? "" : s.place || "";
     $("pMotto").innerHTML = !it && s.motto ? s.motto.map((m) => `<span>${esc(m)}</span>`).join("") : "";
@@ -261,11 +317,23 @@
     else if (kind !== "quote") { title = it.title || ""; meta = it.years || ""; lead = it.text || ""; }
     $("pTitle").textContent = title;
     $("pMeta").textContent = meta;
-    $("pLead").textContent = lead;
+    $("pLead").innerHTML = rich(lead);
+    $("pPoints").innerHTML = it && it.points ? it.points.map((p) => `<li>${rich(p)}</li>`).join("") : "";
+    $("pCoda").innerHTML = rich((it && it.coda) || "");
 
-    $("qText").textContent = kind === "quote" ? it.text : "";
-    $("qSrc").textContent = kind === "quote" ? it.src || "" : "";
-    $("pQuote").classList.toggle("long", kind === "quote" && it.text.length > 190);
+    const q = !it ? null : kind === "quote" ? { text: it.text, src: it.src } : it.quote || null;
+    $("qText").textContent = q ? q.text : "";
+    $("qSrc").textContent = q ? q.src || "" : "";
+    // câu trích đi kèm gạch đầu dòng thì nhỏ hơn câu trích đứng một mình
+    $("pQuote").classList.toggle("long", !!q && (q.text.length > 190 || (kind !== "quote" && q.text.length > 90)));
+    $("pQuote").classList.toggle("side", !!q && kind !== "quote");
+
+    if (kind === "summary") {
+      const tk = $("pTake");
+      tk.dataset.si = "";
+      tk.innerHTML = it.grid.map((x) => `<div class="on now"><b>${esc(x.b)}</b><span>${esc(x.t)}</span></div>`).join("");
+      return;
+    }
 
     // các nút "take" liền nhau hiện thành một lưới, mở dần từng ô
     const tk = $("pTake");
@@ -383,8 +451,8 @@
   }
 
   function tweenBranches(dt) {
-    // nhánh trước còn mở trên 80% thì nhánh mới đợi
-    const closing = L1.some((A) => A.br && !A.br.open && A.br.W > .8);
+    // nhánh trước còn mở trên 92% thì nhánh mới đợi (đợi lâu hơn thì có một khoảng "chết" dễ bị cảm nhận là lag)
+    const closing = L1.some((A) => A.br && !A.br.open && A.br.W > .92);
     L1.forEach((A) => {
       const b = A.br;
       if (!b) return;
@@ -394,11 +462,11 @@
         if (closing) return;
         wSpring(b, 1, 6.5, .7, dt);
         b.hold += dt;
-        if (b.hold > .12) b.pl = Math.min(1, b.pl + dt / (.3 + .2 * m));
+        if (b.hold > .06) b.pl = Math.min(1, b.pl + dt / (.3 + .2 * m));
       } else {
-        // khép hai nhịp: rút nét trước; rút được gần nửa thì các nút mới khép lại
-        b.pl = Math.max(0, b.pl - dt / .7);
-        if (b.pl < .55) wSpring(b, 0, 5.2, .72, dt); else wSpring(b, 1, 6.5, .7, dt);
+        // khép hai nhịp: rút nét trước; rút được gần một phần ba thì các nút mới khép lại
+        b.pl = Math.max(0, b.pl - dt / .5);
+        if (b.pl < .7) wSpring(b, 0, 5.2, .72, dt); else wSpring(b, 1, 6.5, .7, dt);
       }
       b.p = sine(b.pl);
     });
@@ -453,6 +521,11 @@
   }
   const dstr = (c) => `M${f1(c[0])} ${f1(c[1])}C${f1(c[2])} ${f1(c[3])} ${f1(c[4])} ${f1(c[5])} ${f1(c[6])} ${f1(c[7])}`;
 
+  // chỉ ghi thuộc tính khi giá trị thật sự đổi: ghi lại cùng giá trị vẫn khiến trình duyệt vẽ lại
+  function put(el, k, v) {
+    const c = el._a || (el._a = {});
+    if (c[k] !== v) { c[k] = v; el.setAttribute(k, v); }
+  }
   function drawRail() {
     const X = (x) => M.pad + (x - R.x) * M.s, Y = (y) => M.top + y;
     const cs = R.cur.si, ci = R.cur.ii, cstep = R.cur.step;
@@ -460,9 +533,9 @@
     // trục chính
     L1.forEach((A, i) => {
       const B = L1[i + 1] || END;
-      if (B.x - A.x < .5) { A.ax.setAttribute("d", ""); return; }
-      A.ax.setAttribute("d", `M${f1(X(A.x))} ${Y(0)}H${f1(X(B.x))}`);
-      A.ax.setAttribute("class", "ax" + (i < cs ? " done" : ""));
+      if (B.x - A.x < .5) { put(A.ax, "d", ""); return; }
+      put(A.ax, "d", `M${f1(X(A.x))} ${Y(0)}H${f1(X(B.x))}`);
+      put(A.ax, "class", "ax" + (i < cs ? " done" : ""));
     });
 
     // nhánh
@@ -480,12 +553,12 @@
         if (t <= .001) continue;
         const a = pts[k], z = pts[k + 1];
         const p = seg(A.si + ":" + k);
-        p.setAttribute("d", dstr(part(cub({ x: X(a.x), y: Y(a.y) }, { x: X(z.x), y: Y(z.y) }), t)));
+        put(p, "d", dstr(part(cub({ x: X(a.x), y: Y(a.y) }, { x: X(z.x), y: Y(z.y) }), t)));
         const done = cs > A.si || (cs === A.si && ci >= k);
-        p.setAttribute("class", "br" + (done ? " done" : "") + (cs === A.si ? " live" : ""));
+        put(p, "class", "br" + (done ? " done" : "") + (cs === A.si ? " live" : ""));
       }
     });
-    for (const k in pool) if (!pool[k]._seen) pool[k].setAttribute("d", "");
+    for (const k in pool) if (!pool[k]._seen) put(pool[k], "d", "");
 
     // nút + nhãn
     NODES.forEach((n) => {
@@ -499,7 +572,7 @@
       const now = n === R.cur;
       const pop = n.lvl === 1 ? 1 : .55 + .45 * popSpring(n.ap);
       const fade = n.lvl === 1 ? 1 : n.a * clamp(n.ap / .22, 0, 1);
-      n.g.setAttribute("transform", `translate(${f1(sx)} ${f1(sy)}) scale(${f2(pop * (now ? 1.25 : 1))})`);
+      put(n.g, "transform", `translate(${f1(sx)} ${f1(sy)}) scale(${f2(pop * (now ? 1.25 : 1))})`);
       const op = f2(fade) + "";
       if (n._op !== op) { n.g.style.opacity = op; n.cap.style.opacity = op; n._op = op; }
       const cls = (now ? " now" : "") + (n.step < cstep ? " past" : "");
@@ -508,7 +581,8 @@
         n.g.setAttribute("class", "rn l" + n.lvl + (n.it ? " k-" + n.it.kind : "") + cls);
         n.cap.className = "rc l" + n.lvl + cls;
       }
-      n.cap.style.transform = `translate3d(${f1(sx)}px,${f1(sy)}px,0)`;
+      const ct = `translate3d(${f1(sx)}px,${f1(sy)}px,0)`;
+      if (n._ct !== ct) n.cap.style.transform = n._ct = ct;
     });
   }
 
@@ -519,7 +593,15 @@
     railStep(dt);
     requestAnimationFrame(frame);
   }
+  // đứng yên thì không tính, không vẽ gì: trước đây mỗi khung đều ghi lại toàn bộ SVG của dòng bố cục
+  function railBusy() {
+    return R.wake || R.instant || Math.abs(R.v) > .01 ||
+      L1.some((A) => A.br && (A.br.open ? A.br.pl < 1 || A.br.W !== 1 : A.br.pl > 0 || A.br.W !== 0)) ||
+      NODES.some((n) => n.lvl === 2 && n.a > .01 && n.ap < POP_T);
+  }
   function railStep(dt) {
+    if (!railBusy()) return;
+    R.wake = false;
     tweenBranches(dt);
     NODES.forEach((n) => {
       if (n.lvl === 1) return;
@@ -531,6 +613,7 @@
     if (an !== R.an) { R.off = R.x - an.x; R.an = an; } // đổi neo nhưng giữ nguyên vị trí camera
     const to = camOffset(an);
     if (R.instant) { R.off = to; R.v = 0; } else spring(R, "off", "v", to, 6.5, dt);
+    if (Math.abs(R.off - to) < .05 && Math.abs(R.v) < .05) { R.off = to; R.v = 0; } // đã tới đích
     R.x = an.x + R.off;
     drawRail();
     if (R.instant && !STILL) {
@@ -543,6 +626,7 @@
   }
   function railGo(st, instant) {
     R.cur = NODES.find((x) => x.si === st.si && x.ii === st.ii);
+    R.wake = true;
     L1.forEach((A) => {
       if (!A.br) return;
       const o = A.si === st.si;
@@ -576,13 +660,16 @@
     return `${d}°${String(m).padStart(2, "0")}′${v >= 0 ? pos : neg}`;
   };
 
-  let cur = -1, prevAt = null, prevKind = null, swapTimer = 0;
+  let cur = -1, prevAt = null, prevKind = null, swapTimer = 0, prepTimer = 0;
   function render(i, instant) {
     instant = instant || STILL;
     const st = steps[i], s = D.sections[st.si], it = itemOf(st), kind = it ? it.kind : "section";
-    body.classList.toggle("is-cover", s.kind === "cover");
+    // bìa chỉ là bước đầu của phần mở đầu; các nút nhánh của phần ấy hiện như nội dung thường
+    const isCover = s.kind === "cover" && !it;
+    body.classList.toggle("is-cover", isCover);
     body.classList.toggle("is-end", s.kind === "end");
-    body.classList.toggle("has-fig", kind === "person" || kind === "people");
+    body.classList.toggle("has-fig", !!figList(it));
+    body.classList.toggle("bg-dim", !!(it && it.bg && it.bgDim) || (!(it && it.bg) && !!s.bgDim));
     body.classList.toggle("has-quote", kind === "quote");
 
     // nội dung bên trái: các ô "take" liền nhau chỉ mở thêm ô, không mờ cả khối
@@ -605,13 +692,14 @@
     prevAt = m.at;
     document.querySelectorAll("#hl path").forEach((p) => p.classList.toggle("on", m.hl.includes(+p.dataset.id)));
     setPins(m.pins, m.at);
-    $("coord").textContent = s.kind === "cover" ? "" : `${fmt(m.center[1], "N", "S")}  ·  ${fmt(m.center[0], "E", "W")}`;
+    $("coord").textContent = isCover ? "" : `${fmt(m.center[1], "N", "S")}  ·  ${fmt(m.center[0], "E", "W")}`;
 
-    // bên phải: ảnh nền chìm, chân dung
-    setGhost((it && it.bg) || s.bg || null);
-    $("bgCap").textContent = (it && it.bg ? it.bgCap : s.bgCap) || "";
-    const ep = $("endPortrait"), epSrc = s.portrait || "";
-    if (ep.getAttribute("src") !== epSrc) { if (epSrc) ep.setAttribute("src", epSrc); else ep.removeAttribute("src"); }
+    // bên phải: ảnh nền chìm (bìa không có ảnh nền, không chú thích), chân dung
+    setGhost(isCover ? null : (it && it.bg) || s.bg || null);
+    // chuẩn bị ảnh cho các bước kế sau khi chuyển cảnh lắng xuống, để việc vẽ trước không chen vào lúc đang bay
+    clearTimeout(prepTimer);
+    prepTimer = setTimeout(() => prepAround(i), instant ? 0 : 1600);
+    $("bgCap").textContent = isCover ? "" : (it && it.bg ? it.bgCap : s.bgCap) || "";
     setFigure(it, instant);
 
     railGo(st, instant);
@@ -672,4 +760,5 @@
   render(start, true);
   requestAnimationFrame((t) => { lastT = t; requestAnimationFrame(frame); });
   requestAnimationFrame(() => requestAnimationFrame(() => body.classList.remove("boot")));
+  setTimeout(prewarm, 600);
 })();

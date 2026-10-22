@@ -57,6 +57,16 @@ window.DECK = {
       title: "Tư tưởng và văn hóa phương Tây",
       sub: "góp phần hình thành tư tưởng Hồ Chí Minh",
       portraits: ["images/HCM_1.png", "images/HCM_3.png", "images/HCM_4.png"],
+      /* ảnh phương Tây tách nền, dàn đều từ lề trái tới bộ ba (trái → phải): bốn chân dung người thật cùng cao,
+         (Hugo và Tolstoy cao hơn 1.2 lần cho mặt ngang các ông khác), rồi hai biểu tượng văn hóa đứng sát nhau: Chúa Giê-su (đầu ngang đầu tượng) và Nữ thần Tự do (đầu ngang đầu HCM_1) */
+      minis: [
+        { img: "images/KSP-voltaire.png", name: "Voltaire" },
+        { img: "images/KSP-rousseau.png", name: "Rousseau" },
+        { img: "images/Washington.png", name: "George Washington" },
+        { img: "images/VH.png", name: "Victor Hugo và Lev Tolstoy", h: "calc(var(--mi-h) * 1.15)" },
+        { img: "images/Jesus.png", name: "Chúa Giê-su", h: "calc(var(--t1h) * .86)", tight: "calc(var(--t1h) * -.2)" },
+        { img: "images/NTTD.png", name: "Tượng Nữ thần Tự do", h: "calc(var(--t1h) * 1.24)" }
+      ],
       map: { center: [20, 30], zoom: 1, hl: [704], pins: ["Sài Gòn", "Marseille", "New York", "London", "Paris"] },
       bg: "images/bg-saigon.jpg",
       bgCap: "Trụ sở hãng Messageries Maritimes, Sài Gòn (bưu ảnh đầu thế kỷ XX)",

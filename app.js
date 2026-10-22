@@ -272,7 +272,7 @@
   function prewarm() {
     const urls = new Set();
     D.sections.forEach((s) => {
-      [s.portrait, s.hero, ...(s.portraits || [])].forEach((u) => u && urls.add(u));
+      [s.portrait, s.hero, ...(s.portraits || []), ...(s.minis || []).map((m) => m.img)].forEach((u) => u && urls.add(u));
       (s.items || []).forEach((it) => {
         [it.img, it.hero, it.bg2, ...((it.people || []).map((p) => p.img))].forEach((u) => u && urls.add(u));
       });
@@ -661,7 +661,33 @@
   $("cKicker").innerHTML = `<i class="gem"></i>${esc(cover.kicker)}`;
   $("cTitle").textContent = cover.title;
   $("cSub").textContent = cover.sub;
-  $("trio").innerHTML = cover.portraits.map((src, i) => `<figure class="t${i + 1}"><img src="${src}" alt=""></figure>`).join("");
+  // dải ảnh bìa: khối các ảnh phương Tây (minis, dàn đều từ lề trái tới bộ ba), rồi bộ ba HCM;
+  // chung một hàng nên luôn liền nhau. Ảnh nhỏ có thể có chiều cao riêng (h), mặc định theo --mi-h trong style.css
+  $("trio").innerHTML =
+    `<div class="mis">` + (cover.minis || []).map((m, i) =>
+      `<figure class="mi"${m.tight ? ` data-tight="${m.tight}"` : ""} style="${m.h ? `height:${m.h};` : ""}transition-delay:${(.1 + i * .07).toFixed(2)}s">` +
+      `<img src="${m.img}" alt="${esc(m.name || "")}"></figure>`).join("") + `</div>` +
+    cover.portraits.map((src, i) => `<figure class="t${i + 1}"><img src="${src}" alt=""></figure>`).join("");
+  // dàn đều khối ảnh phương Tây: đo bề ngang thật của từng ảnh rồi chia đều khoảng cách (âm = gối lên nhau)
+  // để hàng ảnh vừa khít từ lề trái tới trước HCM_1; chạy lại khi ảnh tải xong và khi đổi cỡ cửa sổ
+  function fitMinis() {
+    const box = document.querySelector("#trio .mis");
+    if (!box) return;
+    const figs = [...box.children];
+    figs.forEach((f) => (f.style.marginRight = "0px"));
+    const total = figs.reduce((w, f) => w + f.getBoundingClientRect().width, 0);
+    // ảnh có "tight" (Chúa Giê-su) đứng sát ảnh kế với khe cố định (data.js, có thể âm vì ảnh kế có vùng trong suốt
+    // bên trái — Nữ thần Tự do — nên hai hình không chạm nhau); phần còn lại chia đều cho các khe giữa những ảnh khác
+    const tight = figs.slice(0, -1).filter((f) => f.dataset.tight);
+    tight.forEach((f) => (f.style.marginRight = f.dataset.tight));
+    const fixed = tight.reduce((w, f) => w + parseFloat(getComputedStyle(f).marginRight), 0);
+    const n = figs.length - 1 - tight.length;
+    const gap = n > 0 ? (box.clientWidth - total - fixed) / n : 0;
+    figs.slice(0, -1).forEach((f) => { if (!f.dataset.tight) f.style.marginRight = gap + "px"; });
+  }
+  document.querySelectorAll("#trio .mis img").forEach((im) => im.complete ? 0 : im.addEventListener("load", fitMinis));
+  addEventListener("resize", fitMinis);
+  fitMinis();
 
   /* ================= HIỂN THỊ ================= */
   // ảnh "hero": đổi sang ảnh khác khi đang hiện thì mờ đi trước rồi mới thay, tránh giật hình

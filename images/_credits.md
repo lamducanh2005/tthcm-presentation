@@ -44,3 +44,7 @@
 - `BYS.jpg`: Bản yêu sách của nhân dân An Nam (Revendications du Peuple Annamite), 1919, người dùng cung cấp (images/ gốc)
 - `HCM_5.png`: Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập bên micro, png tách nền, người dùng cung cấp (images/ gốc)
 - `TNDLVN.jpg`: bản in Tuyên ngôn Độc lập 1945, người dùng cung cấp (images/ gốc)
+- `mini-giesu.jpg`: cắt từ `bg-sermon-mount.jpg` (Carl Bloch, Bài giảng trên núi, 1877, Public domain) — hình Chúa Giê-su cho hàng ảnh nhỏ ở bìa
+- `KSP.png` (Voltaire và Rousseau), `Jesus.png`, `Washington.png` (từ "George Washington.png"): chân dung tách nền, người dùng cung cấp (images/ gốc) — dùng cho cụm ảnh ở bìa
+- `KSP-voltaire.png`, `KSP-rousseau.png`: tách đôi từ `KSP.png` (cắt ở khoảng trống giữa hai chân dung)
+- `VH.png`: Victor Hugo và Lev Tolstoy, chân dung tách nền, người dùng cung cấp (images/ gốc) — dùng cho dải ảnh ở bìa

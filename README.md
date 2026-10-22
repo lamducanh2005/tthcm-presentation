@@ -91,6 +91,7 @@ Cách dàn trang:
 - Hải trình Mục 3: Paris → Philadelphia → Paris → Versailles → Hà Nội. Mục 4: Roma · Vatican (Node 1–3) → Hà Nội (Node 4).
 - Chân dung: Jefferson (Mục 3 Node 1), HCM_1 (Node 3, Nguyễn Ái Quốc thời ở Pháp), HCM_3 (Node 4); HCM_4 để dành cho Kết luận.
 - Ảnh mới `bg-versailles-1919.jpg` cho nút Bản yêu sách (xem `images/_credits.md`).
+- Bìa: thêm chân dung phương Tây tách nền (`minis`: Voltaire → Rousseau → Washington → Hugo và Tolstoy → Chúa Giê-su → Nữ thần Tự do, dàn đều bằng `fitMinis()`) vào chung dải với bộ ba HCM để luôn liền mạch; Nữ thần Tự do: đầu ngang đầu HCM_1, tách nhẹ khỏi HCM_1; HCM_1 và HCM_3 thu nhỏ (30vh, 40vh); tiêu đề tab "Tư tưởng Hồ Chí Minh" (người dùng sửa trong repo, đã chép về v4).
 - Mục 3 Node 3 (Bản yêu sách): theo yêu cầu người dùng, bỏ câu trích "mười ba tuổi" và ý "Người đã đặt chân đến nước Mỹ…"; còn 3 ý.
 - Câu dẫn ở trang đầu Mục 1–4 viết lại theo người dùng; Mục 3 bỏ dòng tiếng Pháp (Liberté · Égalité · Fraternité).
 - Trường mới `hero` của phần: ảnh png tách nền nổi sát mép phải, chỉ ở bước mở phần (chân ảnh mờ dần trước dòng bố cục, ngả sepia nhẹ cho hợp nền giấy). Dùng cho trang đầu Mục 3 (`images/NTTD.png`). Nút nhánh cũng có thể có `hero` (thay cho `img`/`bg`); ảnh nằm ngang thêm `heroWide: true` (tính theo chiều rộng, mép trái mờ dần): Mục 3 Node 1 dùng `images/USA.png`. Đổi từ ảnh hero này sang ảnh hero khác thì mờ đi trước rồi mới thay. Mục 3 Node 2 dùng `images/CMP.png` với `heroCenter: true` (đặt giữa vùng ảnh bên phải, rộng ~38vw; ảnh nền khi đó chỉ lùi xuống .62 thay vì .4). Các ảnh này do người dùng cung cấp.
@@ -122,7 +123,7 @@ Cách dàn trang:
 ## Nội dung (trích từ data.js)
 
 ### Mở đầu
-**Bìa** — kicker *Tư tưởng Hồ Chí Minh* — **Tư tưởng và văn hóa phương Tây** — *góp phần hình thành tư tưởng Hồ Chí Minh*. Chân dung HCM_1, HCM_3, HCM_4. Bản đồ toàn thế giới.
+**Bìa** — kicker *Tư tưởng Hồ Chí Minh* — **Tư tưởng và văn hóa phương Tây** — *góp phần hình thành tư tưởng Hồ Chí Minh*. Một dải ảnh liền mạch cao dần từ trái sang phải, bắt đầu gần mép trái màn hình. Khối ảnh phương Tây (`minis` của phần bìa, khối `.mis`) dàn đều tới trước HCM_1: hàm `fitMinis()` trong app.js đo bề ngang thật từng ảnh rồi chia đều khoảng cách (âm thì gối lên nhau), chạy lại khi ảnh tải xong và khi đổi cỡ cửa sổ; ảnh có `tight` dùng khe cố định thay vì khe chia đều. Thứ tự: Voltaire → Rousseau → George Washington (cao `--mi-h` 15vh) → Victor Hugo và Lev Tolstoy (1.15 × `--mi-h`, vì trong ảnh hai ông nhỏ hơn) → Chúa Giê-su (0.86 × `--t1h`, đầu ngang đầu tượng; `tight` −0.2 × `--t1h` để đứng sát tượng mà không chạm, nhờ vùng trong suốt bên trái ảnh tượng) → tượng Nữ thần Tự do (1.24 × `--t1h`, đầu tượng ngang đầu HCM_1, tay cầm đuốc vươn cao hơn), tách nhẹ khỏi HCM_1 → HCM_1 (30vh) → HCM_3 (40vh) → HCM_4 (58vh, giữ nguyên). Bóng đổ nhẹ, hiện lần lượt, chân ảnh mờ dần vào dòng bố cục. Bản đồ toàn thế giới.
 
 **Ra đi — Ra đi tìm đường cứu nước** *(hải trình Sài Gòn → Marseille; nền bg-saigon)*
 - Ngày 5/6/1911, Nguyễn Tất Thành, lấy tên Văn Ba, làm phụ bếp trên tàu Amiral Latouche-Tréville, rời Bến cảng Nhà Rồng sang Pháp.

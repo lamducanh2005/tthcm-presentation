@@ -51,9 +51,9 @@ h1, h2, p, ul, figure, blockquote { margin: 0; padding: 0; }
 
 .grat { fill: none; stroke: rgba(34, 26, 18, .07); stroke-width: .6; vector-effect: non-scaling-stroke; }
 .land { fill: var(--land); stroke: var(--coast); stroke-width: .8; vector-effect: non-scaling-stroke; }
-.borders { fill: none; stroke: rgba(34, 26, 18, .2); stroke-width: .5; stroke-dasharray: 3 2; vector-effect: non-scaling-stroke; }
+.borders { fill: none; stroke: rgba(34, 26, 18, .38); stroke-width: .7; stroke-dasharray: 3 2; vector-effect: non-scaling-stroke; }
 #hl path {
-  fill: rgba(168, 50, 31, .07); stroke: rgba(168, 50, 31, .55); stroke-width: 1.1; vector-effect: non-scaling-stroke;
+  fill: rgba(168, 50, 31, .1); stroke: rgba(168, 50, 31, .8); stroke-width: 1.4; vector-effect: non-scaling-stroke;
   opacity: 0; transition: opacity 1.2s ease;
 }
 #hl path.on { opacity: 1; }

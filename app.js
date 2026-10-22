@@ -104,7 +104,13 @@
     if (voy) voy.pts = legPoints(voy.a, voy.b);
   }
 
-  const hlIds = new Set(D.sections.flatMap((s) => (s.map && s.map.hl) || []).map(String));
+  // v4: quốc gia chứa mỗi địa danh — bước nào camera đáp xuống địa danh nào thì tự tô quốc gia đó (cộng với hl của phần)
+  const placeCountry = {};
+  for (const name in places) {
+    const f = countries.find((c) => d3.geoContains(c, places[name]));
+    if (f) placeCountry[name] = +f.id;
+  }
+  const hlIds = new Set([...D.sections.flatMap((s) => (s.map && s.map.hl) || []), ...Object.values(placeCountry)].map(String));
   d3.select("#hl").selectAll("path")
     .data(countries.filter((f) => hlIds.has(String(+f.id))))
     .join("path").attr("data-id", (d) => +d.id);
@@ -117,7 +123,7 @@
     const center = it && it.center ? it.center : it && it.at ? places[it.at] : m.center || places[at];
     const pins = (m.pins || []).slice();
     if (at && !pins.includes(at)) pins.push(at);
-    return { at, from: it && it.from, center, zoom: (it && it.zoom) || m.zoom || 1, fx: m.fx, fy: m.fy, hl: m.hl || [], pins };
+    return { at, from: it && it.from, center, zoom: (it && it.zoom) || m.zoom || 1, fx: m.fx, fy: m.fy, hl: [...(m.hl || []), ...(at && placeCountry[at] ? [placeCountry[at]] : [])], pins };
   }
 
   /* camera: view = [x, y, w, fx, fy] — điểm (x, y) của thế giới, bề rộng w, đặt tại tiêu điểm (fx, fy) của màn hình */

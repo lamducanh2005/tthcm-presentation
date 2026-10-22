@@ -50,7 +50,7 @@ URL tự ghi số bước (`index.html#8`), tải lại trang vẫn đúng chỗ
 ## Cấu trúc thư mục
 
 ```
-index.html   khung trang
+index.html   khung trang (icon tab: icon.svg — cờ đỏ sao vàng)
 style.css    giao diện
 app.js       camera bản đồ, hải trình, dòng bố cục rẽ nhánh, điều khiển
 data.js      TOÀN BỘ nội dung chữ, địa danh, zoom, ảnh của từng phần và từng nút

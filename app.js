@@ -664,11 +664,6 @@
   $("trio").innerHTML = cover.portraits.map((src, i) => `<figure class="t${i + 1}"><img src="${src}" alt=""></figure>`).join("");
 
   /* ================= HIỂN THỊ ================= */
-  const fmt = (v, pos, neg) => {
-    const a = Math.abs(v), d = Math.floor(a), m = Math.round((a - d) * 60);
-    return `${d}°${String(m).padStart(2, "0")}′${v >= 0 ? pos : neg}`;
-  };
-
   // ảnh "hero": đổi sang ảnh khác khi đang hiện thì mờ đi trước rồi mới thay, tránh giật hình
   let heroTimer = 0;
   function setHero(src, mods, instant) {
@@ -719,7 +714,6 @@
     prevAt = m.at;
     document.querySelectorAll("#hl path").forEach((p) => p.classList.toggle("on", m.hl.includes(+p.dataset.id)));
     setPins(m.pins, m.at);
-    $("coord").textContent = isCover ? "" : `${fmt(m.center[1], "N", "S")}  ·  ${fmt(m.center[0], "E", "W")}`;
 
     // bên phải: ảnh nền chìm (bìa không có ảnh nền, không chú thích), chân dung
     setGhost(isCover ? null : (it && it.bg) || s.bg || null);

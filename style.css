@@ -131,7 +131,7 @@ h1, h2, p, ul, figure, blockquote { margin: 0; padding: 0; }
 
 /* tách các lớp không đổi theo camera thành lớp riêng (compositor layer):
    bản đồ vẽ lại mỗi khung khi bay, các lớp này chỉ cần ghép lại, không phải vẽ lại */
-.map-fade, .veil, .grain, .ghost, .panel, .figure, .rail, .coord, .bgcap, .trio, .cover-text, .end-portrait { will-change: transform; }
+.map-fade, .veil, .grain, .ghost, .panel, .figure, .rail, .bgcap, .trio, .cover-text, .end-portrait { will-change: transform; }
 
 /* ============ CHỮ CHUNG ============ */
 .kicker {
@@ -363,20 +363,14 @@ body:not(.is-cover) .trio::before { opacity: 0; }
 .has-hero.hero-mid .ghost-img.on { opacity: .62; } /* ảnh nổi đặt giữa che ít hơn: để khung cảnh nền rõ hơn */
 .hero-cut:not([src]) { display: none; }
 
-/* toạ độ, chú thích ảnh */
-.coord {
-  position: absolute; left: var(--pad); top: 4.4vh; z-index: 4;
-  font-size: 11px; font-weight: 600; letter-spacing: .24em; color: var(--ink-3); font-variant-numeric: tabular-nums;
-}
-.coord:empty { display: none; }
-.coord::before { content: ""; display: inline-block; width: 7px; height: 7px; border: 1.5px solid var(--son); border-radius: 50%; margin-right: 10px; vertical-align: 1px; }
+/* chú thích ảnh */
 .bgcap {
   position: absolute; right: var(--pad); top: 4.4vh; z-index: 4; max-width: 36vw; text-align: right;
   font-family: var(--serif); font-size: 14px; font-style: italic; font-weight: 600; color: var(--ink-2); transition: opacity .6s ease;
   text-shadow: 0 0 6px var(--paper), 0 0 2px var(--paper);
 }
 .bgcap:not(:empty)::before { content: "Hình — "; font-family: var(--sans); font-style: normal; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--son); }
-.is-cover .bgcap, .is-cover .coord { opacity: 0; }
+.is-cover .bgcap { opacity: 0; }
 
 /* ============ DÒNG BỐ CỤC ============ */
 .rail {

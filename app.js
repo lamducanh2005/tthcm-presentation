@@ -222,9 +222,22 @@
   // 30–60ms, rớt khung.) Chỉ giữ vài ảnh lân cận chứ không phải tất cả, vì mỗi lớp có mask đều phải ghép lại mỗi khung.
   const ghostEl = $("ghost"), ghostOf = {};
   const decoded = (img) => (img.decode ? img.decode().catch(() => {}) : Promise.resolve());
+  // v4: "bgShift" (vd "0, -13vh" hay "22vw, 0") dịch cả khung ảnh nền: lên để lộ phần đáy tranh,
+  // sang phải để đưa nhân vật chính về gần lề phải (lớp mờ mép trái đi theo ảnh)
+  const bgShift = {};
+  D.sections.forEach((s) => [s, ...(s.items || [])].forEach((o) => { if (o.bg && o.bgShift) bgShift[o.bg] = o.bgShift; }));
   new Set(D.sections.flatMap((s) => [s.bg, ...(s.items || []).map((it) => it.bg)]).filter(Boolean)).forEach((src) => {
     const im = document.createElement("img");
     im.className = "ghost-img"; im.alt = ""; im.decoding = "async";
+    if (bgShift[src]) {
+      const [dx, dy = "0"] = bgShift[src].split(",").map((v) => v.trim());
+      // dịch sang trái: không dời khung (mép phải sẽ hở) mà nới khung về bên trái gấp đôi khoảng dịch,
+      // tâm ảnh lùi đúng một khoảng dx, mép phải vẫn chạm lề màn hình
+      if (dx.startsWith("-")) {
+        im.style.width = `calc(60vw + 2 * ${dx.slice(1)})`;
+        im.style.transform = `translateY(${dy})`;
+      } else im.style.transform = `translate(${dx}, ${dy})`;
+    }
     // ảnh chưa có (chưa tải về): thay bằng ô "ẢNH THIẾU" dễ nhận biết, giữ nguyên các lớp on/ready
     im.onerror = () => {
       const ph = document.createElement("div");
@@ -259,9 +272,9 @@
   function prewarm() {
     const urls = new Set();
     D.sections.forEach((s) => {
-      [s.portrait, ...(s.portraits || [])].forEach((u) => u && urls.add(u));
+      [s.portrait, s.hero, ...(s.portraits || [])].forEach((u) => u && urls.add(u));
       (s.items || []).forEach((it) => {
-        [it.img, ...((it.people || []).map((p) => p.img))].forEach((u) => u && urls.add(u));
+        [it.img, it.hero, it.bg2, ...((it.people || []).map((p) => p.img))].forEach((u) => u && urls.add(u));
       });
     });
     let chain = Promise.resolve();
@@ -287,7 +300,7 @@
     clearTimeout(figTimer);
     figTimer = setTimeout(() => {
       if (!list) { fig.innerHTML = ""; return; }
-      fig.className = "figure" + (list.length > 1 ? " duo" : "") + (list.length > 2 ? " n3" : "");
+      fig.className = "figure" + (list.length > 1 ? " duo" : "") + (list.length > 2 ? " n3" : "") + (it && it.imgDoc ? " doc" : "");
       fig.innerHTML = list.map((p) =>
         `<div class="person${/\.png$/i.test(p.img) ? " png" : ""}"><div class="frame"><img src="${p.img}" alt="${esc(p.name)}"></div>` +
         (list.length > 1 ? `<b>${esc(p.name)}</b><small>${esc(p.years || "")}</small><p>${esc(p.note || "")}</p>` : "") +
@@ -656,6 +669,23 @@
     return `${d}°${String(m).padStart(2, "0")}′${v >= 0 ? pos : neg}`;
   };
 
+  // ảnh "hero": đổi sang ảnh khác khi đang hiện thì mờ đi trước rồi mới thay, tránh giật hình
+  let heroTimer = 0;
+  function setHero(src, mods, instant) {
+    const hc = $("heroCut");
+    clearTimeout(heroTimer);
+    const show = () => {
+      if (src) { if (hc.getAttribute("src") !== src) hc.src = src; hc.className = ("hero-cut " + mods).trim(); }
+      body.classList.toggle("has-hero", !!src);
+      body.classList.toggle("hero-mid", !!src && /center|small/.test(mods));
+    };
+    const old = hc.getAttribute("src");
+    if (!instant && src && old && old !== src && body.classList.contains("has-hero")) {
+      body.classList.remove("has-hero");
+      heroTimer = setTimeout(show, 500);
+    } else show();
+  }
+
   let cur = -1, prevAt = null, prevKind = null, swapTimer = 0, prepTimer = 0;
   function render(i, instant) {
     instant = instant || STILL;
@@ -693,11 +723,18 @@
 
     // bên phải: ảnh nền chìm (bìa không có ảnh nền, không chú thích), chân dung
     setGhost(isCover ? null : (it && it.bg) || s.bg || null);
+    // v4: "bg2" — lớp nền thứ hai (vd một văn bản) chìm sát mép phải, bên cạnh ảnh nền chính
+    const b2 = it && it.bg2, b2el = $("bg2");
+    if (b2 && b2el.getAttribute("src") !== b2) b2el.src = b2;
+    body.classList.toggle("has-bg2", !!b2);
     // chuẩn bị ảnh cho các bước kế sau khi chuyển cảnh lắng xuống, để việc vẽ trước không chen vào lúc đang bay
     clearTimeout(prepTimer);
     prepTimer = setTimeout(() => prepAround(i), instant ? 0 : 1600);
-    $("bgCap").textContent = isCover ? "" : (it && it.bg ? it.bgCap : s.bgCap) || "";
+    $("bgCap").textContent = isCover ? "" : (it && (it.bg || it.hero) ? it.bgCap : s.bgCap) || "";
     setFigure(it, instant);
+    // v4: ảnh png tách nền nổi bên phải (trường "hero" của nút, hoặc của phần ở bước mở phần)
+    const ho = it || s;
+    setHero(ho.hero, (ho.heroWide ? "wide" : "") + (ho.heroCenter ? " center" : "") + (ho.heroSmall ? " small" : ""), instant);
 
     railGo(st, instant);
     cur = i;

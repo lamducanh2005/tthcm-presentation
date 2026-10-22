@@ -246,8 +246,9 @@ window.DECK = {
       noTag: true, noFlowTag: true,
       title: "Tư tưởng tự do, dân chủ",
       lead: "Hồ Chí Minh kế thừa và phát triển tư tưởng tự do, dân chủ từ các cuộc cách mạng của Mỹ và Pháp.",
-      bg: "images/bg-bastille.jpg",
-      bgCap: "Phá ngục Bastille, 14/7/1789 (tranh của J.-P. Houël)",
+      /* không ảnh nền; tượng Nữ thần Tự do (png tách nền) nổi bên phải ở bước mở phần */
+      hero: "images/NTTD.png",
+      bgCap: "Tượng Nữ thần Tự do, món quà nước Pháp tặng nước Mỹ",
       map: { at: "Paris", center: [-32, 42], zoom: 2.2, hl: [840, 250], pins: ["Philadelphia", "Paris", "Versailles", "Hà Nội"] },
       items: [
         {
@@ -258,7 +259,8 @@ window.DECK = {
             "Tháng 7 năm 1776, mười ba thuộc địa của Anh ở Bắc Mỹ tuyên bố độc lập.",
             "Bản tuyên ngôn độc lập của Mỹ đánh dấu lần đầu tiên quyền cơ bản của con người được đưa làm nền tảng lập quốc."
           ],
-          img: "images/p-jefferson.jpg", imgName: "Thomas Jefferson",
+          /* tranh minh họa các nhà lập quốc Mỹ (png tách nền, nằm ngang) thay khung chân dung Jefferson; giữ ảnh nền Trumbull */
+          hero: "images/USA.png", heroWide: true,
           bg: "images/bg-us-declaration.jpg",
           bgCap: "Tuyên ngôn độc lập, tranh của John Trumbull (1819)",
           at: "Philadelphia", zoom: 6
@@ -271,7 +273,9 @@ window.DECK = {
             "Tháng 7 năm 1789, nhà tù Bastille bị phá, cách mạng Pháp bùng nổ.",
             "Đó là thời điểm mà khẩu hiệu Tự do – Bình đẳng – Bác ái được phổ biến rộng rãi."
           ],
-          bg: "images/bg-bastille.jpg",
+          /* tranh minh họa CMP.png (png tách nền) đặt giữa vùng phải; ảnh nền Bastille dịch lên để lộ cảnh đám đông phía dưới */
+          hero: "images/CMP.png", heroWide: true, heroCenter: true,
+          bg: "images/bg-bastille.jpg", bgShift: "0, -13vh",
           bgCap: "Phá ngục Bastille, 14/7/1789 (tranh của J.-P. Houël)",
           at: "Paris", zoom: 7
         },
@@ -284,9 +288,11 @@ window.DECK = {
             "Bản yêu sách dùng chính ngôn ngữ dân quyền của phương Tây để đòi tự do ngôn luận, báo chí, hội họp, đi lại cho dân thuộc địa.",
             "Bản yêu sách không được đáp lại. Người nhận ra rằng những lời hứa tự do của các nước lớn không dành cho dân thuộc địa."
           ],
-          img: "images/HCM_1.png", imgName: "Nguyễn Ái Quốc",
-          bg: "images/bg-versailles-1919.jpg",
-          bgCap: "Ký hòa ước trong Phòng Gương, Versailles, 28/6/1919 (tranh của William Orpen)",
+          /* ảnh chính: tờ Bản yêu sách (khung giấy imgDoc, lệch trái); nền: Nguyễn Ái Quốc tại Đại hội Tours,
+             dịch sang phải để Người đứng gần lề phải (ảnh 480px → chìm sâu bgDim) */
+          img: "images/BYS.jpg", imgName: "Bản yêu sách của nhân dân An Nam", imgDoc: true,
+          bg: "images/HCM_Tua.jpg", bgDim: true, bgShift: "28vw, 0",
+          bgCap: "Nguyễn Ái Quốc phát biểu tại Đại hội Tours, 12/1920",
           at: "Versailles", zoom: 7
         },
         {
@@ -300,9 +306,12 @@ window.DECK = {
             text: "Đó là những lẽ phải không ai chối cãi được.",
             src: "Hồ Chí Minh, Tuyên ngôn Độc lập, 2/9/1945"
           },
-          img: "images/HCM_3.png", imgName: "Hồ Chí Minh",
-          bg: "images/bg-ba-dinh-1945.jpg",
-          bgCap: "Lễ đọc Tuyên ngôn Độc lập, Quảng trường Ba Đình, 2/9/1945",
+          /* ảnh chính: HCM_5 (png tách nền, đọc Tuyên ngôn bên micro) góc phải dưới; nền: Ba Đình nâng lên để lộ lễ đài,
+             tờ Tuyên ngôn (bg2) to ở dải trên, hiện đủ dòng tiêu đề */
+          hero: "images/HCM_5.png", heroSmall: true,
+          bg: "images/bg-ba-dinh-1945.jpg", bgShift: "0, -12vh",
+          bg2: "images/TNDLVN.jpg",
+          bgCap: "Lễ đọc Tuyên ngôn Độc lập, Quảng trường Ba Đình, 2/9/1945 · Bản Tuyên ngôn Độc lập",
           at: "Hà Nội", zoom: 5
         },
         {
@@ -386,8 +395,8 @@ window.DECK = {
             "Người đã chuyển hóa lòng nhân ái, đức hi sinh thành hành động cách mạng, thực hiện giải phóng con người gắn với giải phóng dân tộc khỏi áp bức, bóc lột.",
             "Người cũng phân định rạch ròi giữa giáo lý tốt đẹp và kẻ thực dân mượn danh tôn giáo, luôn chủ trương “Tín ngưỡng tự do, lương giáo đoàn kết”."
           ],
-          bg: "images/bg-tourane-1858.jpg", bgDim: true,
-          bgCap: "Tàu chiến Pháp tấn công Đà Nẵng, 1858",
+          bg: "images/HCM_bishop.png", bgDim: true,
+          bgCap: "Chủ tịch Hồ Chí Minh với các chức sắc tôn giáo",
           at: "Hà Nội", zoom: 4.5
         }
       ]
@@ -403,8 +412,7 @@ window.DECK = {
       /* trang đầu kết luận nhắc lại đúng tên đề tài ở bìa */
       title: "Tư tưởng và văn hóa phương Tây",
       lead: "góp phần hình thành tư tưởng Hồ Chí Minh",
-      bg: "images/bg-tours-1920.jpg",
-      bgCap: "Nguyễn Ái Quốc phát biểu tại Đại hội Tours, 12/1920",
+      /* không ảnh nền, chỉ chân dung HCM_4 */
       portrait: "images/HCM_4.png",
       map: { at: "Hà Nội", zoom: 1.2, hl: [704], pins: ["Hà Nội"] },
       items: [

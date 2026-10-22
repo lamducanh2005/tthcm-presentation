@@ -290,6 +290,10 @@ body:not(.is-cover) .trio::before { opacity: 0; }
 }
 .person img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; filter: sepia(.15) contrast(1.02); }
 .duo .person .frame { height: min(42vh, 76%); }
+/* v4: "imgDoc" — ảnh văn bản: khung chữ nhật như tờ giấy (không vòm, khỏi cắt tiêu đề), đặt lệch trái để lộ ảnh nền bên phải */
+.figure.doc { justify-content: flex-start; padding-left: 3.2vw; }
+.figure.doc .person .frame { height: min(46vh, 80%); aspect-ratio: 4 / 5; border-radius: 3px; transform: rotate(-1.5deg); }
+.figure.doc .person img { object-position: center top; filter: sepia(.12) contrast(1.04); }
 /* ba nhân vật: khung nhỏ hơn, bậc thang nhẹ để không chật */
 .figure.n3 { gap: clamp(10px, 1.3vw, 26px); }
 .n3 .person .frame { height: min(30vh, 60%); }
@@ -313,6 +317,51 @@ body:not(.is-cover) .trio::before { opacity: 0; }
 }
 .is-end .end-portrait { opacity: 1; transform: none; }
 .end-portrait:not([src]) { display: none; }
+
+/* v4: ảnh png tách nền ở trang mở phần (trường "hero"), sát mép phải, chân ảnh mờ dần vào dòng bố cục */
+.hero-cut {
+  position: absolute; right: 0; bottom: calc(var(--rail-h) - 1vh); height: calc(100vh - var(--rail-h) - 8vh); z-index: 2;
+  opacity: 0; transform: translateX(3vw);
+  -webkit-mask-image: linear-gradient(0deg, transparent 0, #000 20%);
+          mask-image: linear-gradient(0deg, transparent 0, #000 20%);
+  filter: sepia(.22) saturate(.85) contrast(1.03);
+  transition: opacity 1.2s ease, transform 1.4s var(--ease); pointer-events: none;
+}
+/* ảnh ngang (heroWide): tính theo chiều rộng, mép trái mờ dần để không đè chữ */
+.hero-cut.wide {
+  height: auto; width: min(54vw, calc((100vh - var(--rail-h)) * 1.25)); bottom: calc(var(--rail-h) - 2vh);
+  -webkit-mask-image: linear-gradient(0deg, transparent 0, #000 18%), linear-gradient(90deg, transparent 0, #000 22%);
+  -webkit-mask-composite: source-in;
+          mask-image: linear-gradient(0deg, transparent 0, #000 18%), linear-gradient(90deg, transparent 0, #000 22%);
+          mask-composite: intersect;
+}
+/* heroSmall: ảnh đứng cỡ vừa (~50vh) ở góc phải dưới, chừa phần giữa cho bối cảnh ảnh nền */
+.hero-cut.small { right: 3vw; height: min(50vh, calc(100vh - var(--rail-h) - 18vh)); bottom: calc(var(--rail-h) - 1vh); }
+
+/* v4: lớp nền thứ hai "bg2" (vd tờ Tuyên ngôn Độc lập): to theo chiều ngang, nằm dải trên bên phải, chìm vào nền;
+   hiện đủ dòng tiêu đề, phần thân văn bản mờ dần ngay dưới tiêu đề để lộ bối cảnh ảnh nền chính */
+.ghost2 {
+  position: absolute; right: 1.5vw; top: 6vh; width: 44vw; height: auto; z-index: 1;
+  opacity: 0; transform: rotate(1deg); filter: sepia(.35) saturate(.75) contrast(1.05);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%), linear-gradient(0deg, transparent 0, transparent 73%, #000 85%, #000 97%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%), linear-gradient(0deg, transparent 0, transparent 73%, #000 85%, #000 97%, transparent 100%);
+          mask-composite: intersect;
+  transition: opacity 1.3s ease; pointer-events: none;
+}
+.has-bg2 .ghost2 { opacity: .6; }
+.ghost2:not([src]) { display: none; }
+
+/* heroCenter: đặt giữa vùng ảnh bên phải, hẹp hơn, không cần mờ mép trái vì không chạm chữ */
+.hero-cut.wide.center {
+  right: 6vw; width: min(38vw, calc((100vh - var(--rail-h)) * 1.05));
+  -webkit-mask-image: linear-gradient(0deg, transparent 0, #000 14%);
+          mask-image: linear-gradient(0deg, transparent 0, #000 14%);
+}
+.has-hero .hero-cut { opacity: 1; transform: none; }
+.has-hero .ghost-img.on { opacity: .4; } /* có ảnh nổi thì ảnh nền lùi xuống, như khi có chân dung */
+.has-hero.hero-mid .ghost-img.on { opacity: .62; } /* ảnh nổi đặt giữa che ít hơn: để khung cảnh nền rõ hơn */
+.hero-cut:not([src]) { display: none; }
 
 /* toạ độ, chú thích ảnh */
 .coord {
@@ -376,7 +425,7 @@ body:not(.is-cover) .trio::before { opacity: 0; }
   .sea { -webkit-mask-image: linear-gradient(180deg, #000 0, #000 40%, transparent 70%); mask-image: linear-gradient(180deg, #000 0, #000 40%, transparent 70%); }
   .map-fade { background: linear-gradient(180deg, transparent 0, transparent 40%, var(--paper) 70%); }
   .panel { width: auto; right: var(--pad); top: 34vh; justify-content: flex-start; }
-  .figure, .bgcap, .end-portrait { display: none; }
+  .figure, .bgcap, .end-portrait, .hero-cut { display: none; }
   .ghost-img { width: 100vw; opacity: 0; }
   .ghost-img.on { opacity: .25; }
   .cover-text { width: auto; right: var(--pad); top: 10vh; }

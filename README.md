@@ -93,6 +93,10 @@ Cách dàn trang:
 - Ảnh mới `bg-versailles-1919.jpg` cho nút Bản yêu sách (xem `images/_credits.md`).
 - Mục 3 Node 3 (Bản yêu sách): theo yêu cầu người dùng, bỏ câu trích "mười ba tuổi" và ý "Người đã đặt chân đến nước Mỹ…"; còn 3 ý.
 - Câu dẫn ở trang đầu Mục 1–4 viết lại theo người dùng; Mục 3 bỏ dòng tiếng Pháp (Liberté · Égalité · Fraternité).
+- Trường mới `hero` của phần: ảnh png tách nền nổi sát mép phải, chỉ ở bước mở phần (chân ảnh mờ dần trước dòng bố cục, ngả sepia nhẹ cho hợp nền giấy). Dùng cho trang đầu Mục 3 (`images/NTTD.png`). Nút nhánh cũng có thể có `hero` (thay cho `img`/`bg`); ảnh nằm ngang thêm `heroWide: true` (tính theo chiều rộng, mép trái mờ dần): Mục 3 Node 1 dùng `images/USA.png`. Đổi từ ảnh hero này sang ảnh hero khác thì mờ đi trước rồi mới thay. Mục 3 Node 2 dùng `images/CMP.png` với `heroCenter: true` (đặt giữa vùng ảnh bên phải, rộng ~38vw; ảnh nền khi đó chỉ lùi xuống .62 thay vì .4). Các ảnh này do người dùng cung cấp.
+- Trường mới `bgShift` (vd `"0, -13vh"`, `"28vw, 0"`): dịch cả khung ảnh nền (kèm lớp mờ). Mục 3 Node 2: tranh Bastille nâng lên 13vh để lộ cảnh đám đông phía dưới; Mục 3 Node 3: ảnh Đại hội Tours dịch phải 28vw để Nguyễn Ái Quốc đứng gần lề phải (không lật ảnh).
+- Trường mới `bg2`: lớp nền thứ hai chìm cạnh ảnh nền chính (Mục 3 Node 4: tờ Tuyên ngôn Độc lập). `bgShift` có x âm thì khung ảnh nền nới rộng sang trái thay vì dời, để mép phải không hở. `heroSmall`: ảnh đứng cỡ vừa (~50vh) ở góc phải dưới, chừa phần giữa cho bối cảnh ảnh nền.
+- Trường mới `imgDoc: true`: ảnh chính là văn bản → khung chữ nhật như tờ giấy (không vòm, hơi nghiêng), đặt lệch trái trong vùng ảnh (Mục 3 Node 3, `images/BYS.jpg`).
 - Mục 3, Mục 4 ẩn chữ tag nhỏ trên dòng bố cục (`noFlowTag`) vì tag và nhãn gần như trùng nhau.
 
 ## Thay đổi so với v2 (đã có từ v3)
@@ -177,22 +181,22 @@ Cách dàn trang:
 Theo TOC.v1, mục (c) của hai nút (chuyện/câu Tolstoy 1960, "Điếc không sợ súng", câu Trần Dân Tiên) **không đưa lên slide**; không bìa Le Paria. Ảnh p-zola, p-anatole-france vẫn để trong images nhưng không dùng.
 
 ### Tư tưởng tự do, dân chủ
-**Mở phần — Tư tưởng tự do, dân chủ:** Hồ Chí Minh kế thừa và phát triển tư tưởng tự do, dân chủ từ các cuộc cách mạng của Mỹ và Pháp. (Bỏ dòng tiếng Pháp *Liberté · Égalité · Fraternité*.) *(Đại Tây Dương; nền bg-bastille)*
+**Mở phần — Tư tưởng tự do, dân chủ:** Hồ Chí Minh kế thừa và phát triển tư tưởng tự do, dân chủ từ các cuộc cách mạng của Mỹ và Pháp. (Bỏ dòng tiếng Pháp *Liberté · Égalité · Fraternité*.) *(Đại Tây Dương; không ảnh nền; tượng Nữ thần Tự do NTTD.png tách nền nổi bên phải)*
 
-**Tuyên ngôn Độc lập của Mỹ** *(Philadelphia; chân dung Jefferson; nền bg-us-declaration)*
+**Tuyên ngôn Độc lập của Mỹ** *(Philadelphia; nền bg-us-declaration, lùi mờ; tranh minh họa các nhà lập quốc USA.png thay khung chân dung Jefferson, ảnh ngang tách nền nổi bên phải)*
 - Tháng 7 năm 1776, mười ba thuộc địa của Anh ở Bắc Mỹ tuyên bố độc lập.
 - Bản tuyên ngôn độc lập của Mỹ đánh dấu lần đầu tiên quyền cơ bản của con người được đưa làm nền tảng lập quốc.
 
-**Tuyên ngôn của Pháp** *(Paris; nền bg-bastille)*
+**Tuyên ngôn của Pháp** *(Paris; nền bg-bastille nâng lên 13vh (`bgShift`) để lộ cảnh đám đông phía dưới; tranh minh họa CMP.png tách nền đặt giữa vùng phải)*
 - Tháng 7 năm 1789, nhà tù Bastille bị phá, cách mạng Pháp bùng nổ.
 - Đó là thời điểm mà khẩu hiệu Tự do – Bình đẳng – Bác ái được phổ biến rộng rãi.
 
-**Bản yêu sách của nhân dân An Nam** *(Versailles; chân dung HCM_1; nền bg-versailles-1919)*
+**Bản yêu sách của nhân dân An Nam** *(Versailles; ảnh chính: tờ Bản yêu sách BYS.jpg trong khung giấy `imgDoc`, lệch trái; nền: HCM_Tua.jpg, Nguyễn Ái Quốc tại Đại hội Tours, dịch phải 28vw, chìm sâu bgDim)*
 - Năm 1919, Bản yêu sách của nhân dân An Nam gửi tới Hội nghị Versailles, ký tên Nguyễn Ái Quốc.
 - Bản yêu sách dùng chính ngôn ngữ dân quyền của phương Tây để đòi tự do ngôn luận, báo chí, hội họp, đi lại cho dân thuộc địa.
 - Bản yêu sách không được đáp lại. Người nhận ra rằng những lời hứa tự do của các nước lớn không dành cho dân thuộc địa.
 
-**Tuyên ngôn Độc lập** *(Hà Nội; chân dung HCM_3; nền bg-ba-dinh-1945)*
+**Tuyên ngôn Độc lập** *(Hà Nội; ảnh chính HCM_5.png tách nền, đọc Tuyên ngôn bên micro, cỡ vừa ở góc phải dưới (`hero` + `heroSmall`); nền bg-ba-dinh-1945 nâng 12vh để lộ cột cờ và lễ đài; lớp nền thứ hai `bg2` = TNDLVN.jpg rộng 44vw ở dải trên, hiện đủ dòng "TUYÊN-NGÔN ĐỘC-LẬP", thân văn bản mờ dần ngay dưới tiêu đề)*
 - Ngày 2/9/1945, Tuyên ngôn Độc lập của nước Việt Nam Dân chủ Cộng hòa mở đầu bằng lời của chính hai bản tuyên ngôn Mỹ và Pháp.
 - Trích: "Đó là những lẽ phải không ai chối cãi được." — Hồ Chí Minh, Tuyên ngôn Độc lập, 2/9/1945
 
@@ -219,13 +223,13 @@ Theo TOC.v1, mục (c) của hai nút (chuyện/câu Tolstoy 1960, "Điếc khô
 - "Chúa Giê-su dạy: Đạo đức là bác ái."
 - Người không nhìn tôn giáo bằng lăng kính giáo điều, mà bằng con mắt văn hóa – đạo đức, chắt lọc cái tốt ở mỗi học thuyết.
 
-**Kế thừa và phát huy** *(Roma → Hà Nội; nền bg-tourane-1858)*
+**Kế thừa và phát huy** *(Roma → Hà Nội; nền HCM_bishop, chìm sâu bgDim)*
 - Hồ Chí Minh đã kế thừa lòng nhân ái, đức hi sinh, hết lòng phụng sự cho nước nhà.
 - Người đã chuyển hóa lòng nhân ái, đức hi sinh thành hành động cách mạng, thực hiện giải phóng con người gắn với giải phóng dân tộc khỏi áp bức, bóc lột.
 - Người cũng phân định rạch ròi giữa giáo lý tốt đẹp và kẻ thực dân mượn danh tôn giáo, luôn chủ trương "Tín ngưỡng tự do, lương giáo đoàn kết".
 
 ### Kết luận
-**Mở phần — Tư tưởng và văn hóa phương Tây** · *góp phần hình thành tư tưởng Hồ Chí Minh*: nhắc lại đúng tên đề tài ở bìa, dòng phụ cùng kiểu chữ với bìa (serif nghiêng, đỏ son, gạch ngắn bên dưới). *(Hà Nội, toàn thế giới; nền bg-tours-1920; chân dung lớn HCM_4 suốt phần kết)*
+**Mở phần — Tư tưởng và văn hóa phương Tây** · *góp phần hình thành tư tưởng Hồ Chí Minh*: nhắc lại đúng tên đề tài ở bìa, dòng phụ cùng kiểu chữ với bìa (serif nghiêng, đỏ son, gạch ngắn bên dưới). *(Hà Nội, toàn thế giới; không ảnh nền, chỉ chân dung lớn HCM_4 suốt phần kết)*
 
 **Tổng kết** — 4 ý nguyên văn TOC.draft (sửa "tư do" → "tự do", "những văn" → "những giá trị ấy")
 - Trong thời gian bôn ba các nước châu Âu, Bác đã có thời gian tiếp xúc và học hỏi văn hóa và tư tưởng mới mẻ của người phương Tây.

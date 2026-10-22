@@ -36,3 +36,11 @@
 
 ## Tải thêm trong v4
 - `bg-versailles-1919.jpg` (1920px) ← [Orpen, William (Sir) (RA) - The Signing of Peace in the Hall of Mirrors, Versailles, 28th June 1919 - Google Art Project.jpg](https://commons.wikimedia.org/wiki/File:Orpen,_William_(Sir)_(RA)_-_The_Signing_of_Peace_in_the_Hall_of_Mirrors,_Versailles,_28th_June_1919_-_Google_Art_Project.jpg) — Public domain. Dùng cho nút "Bản yêu sách của nhân dân An Nam" (ảnh minh họa bối cảnh Hội nghị Versailles)
+- `NTTD.png`: tượng Nữ thần Tự do, png tách nền, người dùng cung cấp (images/ gốc)
+- `HCM_bishop.png`: Chủ tịch Hồ Chí Minh với các chức sắc tôn giáo, người dùng cung cấp (images/ gốc)
+- `USA.png`: tranh minh họa các nhà lập quốc Hoa Kỳ, png tách nền, người dùng cung cấp (images/ gốc)
+- `CMP.png`: tranh minh họa Cách mạng Pháp, png tách nền, người dùng cung cấp (images/ gốc)
+- `HCM_Tua.jpg`: Nguyễn Ái Quốc tại Đại hội Tours, 12/1920, người dùng cung cấp (images/ gốc)
+- `BYS.jpg`: Bản yêu sách của nhân dân An Nam (Revendications du Peuple Annamite), 1919, người dùng cung cấp (images/ gốc)
+- `HCM_5.png`: Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập bên micro, png tách nền, người dùng cung cấp (images/ gốc)
+- `TNDLVN.jpg`: bản in Tuyên ngôn Độc lập 1945, người dùng cung cấp (images/ gốc)

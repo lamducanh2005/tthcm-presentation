@@ -92,6 +92,7 @@ Cách dàn trang:
 - Chân dung: Jefferson (Mục 3 Node 1), HCM_1 (Node 3, Nguyễn Ái Quốc thời ở Pháp), HCM_3 (Node 4); HCM_4 để dành cho Kết luận.
 - Ảnh mới `bg-versailles-1919.jpg` cho nút Bản yêu sách (xem `images/_credits.md`).
 - Mục 3 Node 3 (Bản yêu sách): theo yêu cầu người dùng, bỏ câu trích "mười ba tuổi" và ý "Người đã đặt chân đến nước Mỹ…"; còn 3 ý.
+- Câu dẫn ở trang đầu Mục 1–4 viết lại theo người dùng; Mục 3 bỏ dòng tiếng Pháp (Liberté · Égalité · Fraternité).
 - Mục 3, Mục 4 ẩn chữ tag nhỏ trên dòng bố cục (`noFlowTag`) vì tag và nhãn gần như trùng nhau.
 
 ## Thay đổi so với v2 (đã có từ v3)
@@ -132,7 +133,7 @@ Cách dàn trang:
 - Ba dòng chảy: Khai sáng và dân chủ · văn học nhân đạo · Thiên Chúa giáo
 
 ### Triết học Khai sáng Pháp
-**Mở phần:** Lý trí, quyền tự nhiên, chủ quyền nhân dân: những ý niệm Người gặp trên đường tìm hiểu nước Pháp. *(Paris; nền bg-geoffrin)* Từ nút đầu tiên, camera đứng yên ở Pháp (Paris, zoom 6) cho hết mục; các nút trong mục không hiện tag cạnh kicker (`noTag` của phần).
+**Mở phần:** Hồ Chí Minh tìm hiểu và tiếp xúc với những tư tưởng tiến bộ mới trong thời kỳ Khai sáng của phương Tây. *(Paris; nền bg-geoffrin)* Từ nút đầu tiên, camera đứng yên ở Pháp (Paris, zoom 6) cho hết mục; các nút trong mục không hiện tag cạnh kicker (`noTag` của phần).
 
 **Thời kỳ Khai sáng — Thế kỷ của lý trí** *(Paris)*
 - Phong trào tư tưởng châu Âu, đỉnh cao ở Pháp thế kỷ XVIII: "thế kỷ ánh sáng".
@@ -163,7 +164,7 @@ Cách dàn trang:
 - Trích: "Cách mệnh Pháp cũng như cách mệnh Mỹ, nghĩa là cách mệnh tư bản, cách mệnh không đến nơi, tiếng là cộng hoà và dân chủ, kỳ thực trong thì nó tước lục công nông, ngoài thì nó áp bức thuộc địa." — Nguyễn Ái Quốc, Đường Kách mệnh (1927)
 
 ### Văn học phương Tây
-**Mở phần — Giá trị nhân văn trong văn học phương Tây** *(chỉ tiêu đề, không câu dẫn; nền bg-cosette)* Các nút trong mục không có tag, cả cạnh kicker lẫn ở dòng bố cục (`noTag`, `noFlowTag` của phần).
+**Mở phần — Giá trị nhân văn trong văn học phương Tây:** Hồ Chí Minh tiếp xúc với những giá trị nhân văn, nhân đạo thông qua những tác phẩm văn học phương Tây đương thời. *(nền bg-cosette)* Các nút trong mục không có tag, cả cạnh kicker lẫn ở dòng bố cục (`noTag`, `noFlowTag` của phần).
 
 **Tiếp cận — Văn học phương Tây với Nguyễn Ái Quốc** *(Paris, thu xa thấy London; chân dung Hugo, Shakespeare, Tolstoy; nền bg-sainte-genevieve)* — 2 ý nguyên văn của người dùng (TOC.v1 Mục 2 Node 1 (b)), không câu trích
 - Khi còn ở châu Âu, Nguyễn Ái Quốc vừa làm thuê vừa dành thời gian tại các thư viện để đọc kiệt tác văn học phương Tây.
@@ -176,7 +177,7 @@ Cách dàn trang:
 Theo TOC.v1, mục (c) của hai nút (chuyện/câu Tolstoy 1960, "Điếc không sợ súng", câu Trần Dân Tiên) **không đưa lên slide**; không bìa Le Paria. Ảnh p-zola, p-anatole-france vẫn để trong images nhưng không dùng.
 
 ### Tư tưởng tự do, dân chủ
-**Mở phần — Tư tưởng tự do, dân chủ** · *Liberté · Égalité · Fraternité*: Hai bản tuyên ngôn của cách mạng Mỹ và Pháp, và cách Người "suy rộng ra". *(Đại Tây Dương; nền bg-bastille)*
+**Mở phần — Tư tưởng tự do, dân chủ:** Hồ Chí Minh kế thừa và phát triển tư tưởng tự do, dân chủ từ các cuộc cách mạng của Mỹ và Pháp. (Bỏ dòng tiếng Pháp *Liberté · Égalité · Fraternité*.) *(Đại Tây Dương; nền bg-bastille)*
 
 **Tuyên ngôn Độc lập của Mỹ** *(Philadelphia; chân dung Jefferson; nền bg-us-declaration)*
 - Tháng 7 năm 1776, mười ba thuộc địa của Anh ở Bắc Mỹ tuyên bố độc lập.
@@ -202,7 +203,7 @@ Theo TOC.v1, mục (c) của hai nút (chuyện/câu Tolstoy 1960, "Điếc khô
 - Trích: "Suy rộng ra, câu ấy có ý nghĩa là: tất cả các dân tộc trên thế giới đều sinh ra bình đẳng, dân tộc nào cũng có quyền sống, quyền sung sướng và quyền tự do." — Hồ Chí Minh, Tuyên ngôn Độc lập, 2/9/1945
 
 ### Thiên Chúa giáo
-**Mở phần:** Một nền tảng của văn hóa phương Tây: lòng bác ái, tinh thần hy sinh vì con người. *(Roma · Vatican; nền bg-vatican)*
+**Mở phần:** Nền tảng văn hóa phương Tây: Kitô giáo với lòng bác ái cao cả và tinh thần hy sinh vì con người. *(Roma · Vatican; nền bg-vatican)*
 
 **Kitô giáo** *(Roma · Vatican; nền bg-sermon-mount)*
 - Mọi con người đều là con của Chúa, không phân biệt sang hèn hay màu da.
